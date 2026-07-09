@@ -1,20 +1,54 @@
-import { ArrowRight, CheckCircle2, Menu, MessageCircle, ShieldCheck, Sparkles } from 'lucide-react'
+import { ArrowRight, CheckCircle2, Mail, Menu, MessageCircle, ShieldCheck } from 'lucide-react'
 import {
   afterRequestSteps,
   audienceCards,
   directions,
   faqItems,
   formatCards,
-  heroBadges,
   learningSteps,
   navItems,
   teachers,
 } from './content'
-import { LeadForm } from './components/LeadForm'
+import { legalConfig, legalLinks } from './config/legal'
+import { LegalPage, type LegalPageKey } from './pages/LegalPage'
+import { NotFoundPage } from './pages/NotFoundPage'
 import { PhotoFrame } from './components/PhotoFrame'
 import { SectionHeading } from './components/SectionHeading'
+import { TelegramLead } from './components/TelegramLead'
+
+const legalPageKeys = new Set<LegalPageKey>([
+  'privacy',
+  'personal-data-consent',
+  'marketing-consent',
+  'terms',
+  'cookies',
+])
+
+const heroAudienceChips = ['9–11 класс', 'ОГЭ / ЕГЭ', 'олимпиады', 'школьная база']
 
 function App() {
+  const path = normalizePath(window.location.pathname)
+
+  if (isLegalPage(path)) {
+    return (
+      <main>
+        <Header />
+        <LegalPage pageKey={path.slice(1) as LegalPageKey} />
+        <Footer />
+      </main>
+    )
+  }
+
+  if (path !== '/') {
+    return (
+      <main>
+        <Header />
+        <NotFoundPage />
+        <Footer />
+      </main>
+    )
+  }
+
   return (
     <main>
       <Header />
@@ -30,6 +64,18 @@ function App() {
       <Footer />
     </main>
   )
+}
+
+function normalizePath(pathname: string) {
+  if (!pathname || pathname === '/index.html') {
+    return '/'
+  }
+
+  return pathname.endsWith('/') && pathname !== '/' ? pathname.slice(0, -1) : pathname
+}
+
+function isLegalPage(path: string) {
+  return legalPageKeys.has(path.slice(1) as LegalPageKey)
 }
 
 function Header() {
@@ -49,7 +95,7 @@ function Header() {
       </nav>
 
       <div className="header-actions">
-        <a className="button button--small" href="#lead">
+        <a className="button button--small" href={legalConfig.telegramContact} target="_blank" rel="noreferrer">
           Оставить заявку
         </a>
         <button className="mobile-menu" type="button" aria-label="Меню">
@@ -65,38 +111,41 @@ function Hero() {
     <section className="hero-section" id="top">
       <div className="hero-grid">
         <div className="hero-copy">
-          <div className="eyebrow">
-            <Sparkles aria-hidden="true" />
-            физика для тех, кто хочет понимать
-          </div>
-          <h1>
-            Физика
-            <span> без зубрежки</span>
+          <div className="eyebrow">ОГЭ • ЕГЭ • ОЛИМПИАДЫ • ШКОЛЬНАЯ ФИЗИКА</div>
+          <h1 className="hero-title">
+            <span className="hero-title__line">
+              <span className="hero-title__word">НЕ УЧИ</span>
+              <span className="hero-title__word">ФИЗИКУ.</span>
+            </span>
+            <span className="hero-title__line hero-title__accent">
+              <span className="hero-title__word">ПОЙМИ</span>
+              <span className="hero-title__word">ЕЁ.</span>
+            </span>
           </h1>
           <p className="hero-lead">
-            Готовим к ЕГЭ, ОГЭ, олимпиадам и школьной программе через логику, задачи и понятные связи.
+            Секрет не в сотне формул, а в понимании связей. Показываем, откуда всё берётся, как думать в задачах и как
+            перестать теряться в темах.
           </p>
 
-          <div className="hero-badges" aria-label="Ключевые преимущества">
-            {heroBadges.map((badge) => (
-              <span key={badge}>{badge}</span>
-            ))}
-          </div>
-
           <div className="hero-actions">
-            <a className="button button--light" href="#lead">
-              Оставить заявку
+            <a className="button button--light" href={legalConfig.telegramContact} target="_blank" rel="noreferrer">
+              Оставить заявку в Telegram
               <ArrowRight aria-hidden="true" />
             </a>
-            <a className="button button--ghost" href="#format">
-              Как проходит обучение
+            <a className="button button--ghost" href={legalConfig.telegramChannel} target="_blank" rel="noreferrer">
+              Telegram-канал
             </a>
+          </div>
+
+          <div className="hero-chip-row" aria-label="Кому подходит">
+            {heroAudienceChips.map((chip) => (
+              <span key={chip}>{chip}</span>
+            ))}
           </div>
         </div>
 
         <div className="hero-visual" aria-label="Преподаватели PRIME ACADEMY">
-          <div className="formula-cloud formula-cloud--one">F = ma</div>
-          <div className="formula-cloud formula-cloud--two">E = hν</div>
+          <div className="hero-glow" aria-hidden="true"></div>
           <PhotoFrame
             src="./images/kirill-hero.jpg"
             alt="Кирилл Алексеевич, преподаватель физики"
@@ -115,11 +164,6 @@ function Hero() {
             imagePosition="center 30%"
             loading="eager"
           />
-          <div className="hand-note hand-note--hero">логика &gt; зубрежка</div>
-          <div className="hero-proof">
-            <strong>98</strong>
-            <span>баллов по физике у каждого преподавателя</span>
-          </div>
         </div>
       </div>
     </section>
@@ -185,7 +229,7 @@ function DirectionsSection() {
                     </li>
                   ))}
                 </ul>
-                <a href="#lead">
+                <a href={legalConfig.telegramContact} target="_blank" rel="noreferrer">
                   Оставить заявку
                   <ArrowRight aria-hidden="true" />
                 </a>
@@ -234,7 +278,7 @@ function TeachersSection() {
         <SectionHeading
           eyebrow="преподаватели"
           title="Те, кто сам прошел сильную физику и умеет объяснять ее человеческим языком"
-          text="Кирилл и Ирина учатся в НИЯУ МИФИ, сдали физику на 98 и прошли олимпиадный путь. На сайте нет безликих кураторов: ты сразу видишь людей, с которыми будешь говорить."
+          text="Кирилл и Ирина учатся в НИЯУ МИФИ, сдали физику на 98 и прошли олимпиадный путь. На MVP занятия ведут лично Кирилл и Ирина: ты сразу видишь людей, с которыми будешь говорить."
         />
 
         <div className="teachers-grid">
@@ -300,7 +344,9 @@ function FormatSection() {
                     <li key={detail}>{detail}</li>
                   ))}
                 </ul>
-                <a href="#lead">Узнать условия</a>
+                <a href={legalConfig.telegramContact} target="_blank" rel="noreferrer">
+                  Узнать условия
+                </a>
               </article>
             )
           })}
@@ -344,17 +390,17 @@ function LeadSection() {
       <div className="section-shell lead-shell">
         <div className="lead-copy">
           <span className="lead-label">заявка</span>
-          <h2>Оставь Telegram, и мы напишем тебе лично</h2>
+          <h2>Напиши Кириллу в Telegram, чтобы обсудить подготовку</h2>
           <p>
-            Форма нужна только для первого контакта. Мы не подключаем оплату, кабинет, cookies, CRM и лишние сервисы на
-            этапе MVP.
+            Для быстрого MVP сайт не собирает данные через форму. Первый контакт проходит в Telegram: так проще,
+            быстрее и безопаснее для запуска.
           </p>
           <div className="lead-note">
             <ShieldCheck aria-hidden="true" />
-            <span>Минимум данных: имя, Telegram, класс, направление и комментарий по желанию.</span>
+            <span>Сайт не принимает оплату, не создает личный кабинет, не использует cookies и не отправляет заявки.</span>
           </div>
         </div>
-        <LeadForm />
+        <TelegramLead />
       </div>
     </section>
   )
@@ -391,7 +437,9 @@ function Footer() {
           <span>PRIME</span>
           <strong>ACADEMY</strong>
         </a>
-        <p>Онлайн-школа физики для ЕГЭ, ОГЭ, олимпиад и уверенной школьной базы.</p>
+        <p>
+          Онлайн-подготовка и репетиторские занятия по физике для ЕГЭ, ОГЭ, олимпиад и уверенной школьной базы.
+        </p>
       </div>
 
       <div className="footer-links">
@@ -402,15 +450,29 @@ function Footer() {
         ))}
         <a href="https://t.me/physicspace" target="_blank" rel="noreferrer">
           <MessageCircle aria-hidden="true" />
-          t.me/physicspace
+          {legalConfig.telegramChannelLabel}
+        </a>
+        <a href={legalConfig.telegramContact} target="_blank" rel="noreferrer">
+          <MessageCircle aria-hidden="true" />
+          {legalConfig.telegramContactLabel}
+        </a>
+        <a href={`mailto:${legalConfig.operatorEmail}`}>
+          <Mail aria-hidden="true" />
+          {legalConfig.operatorEmail}
         </a>
       </div>
 
-      <div className="legal-links" id="legal-note">
-        <a href="#legal-note">Политика обработки данных</a>
-        <a href="#legal-note">Согласие на обработку данных</a>
-        <a href="#legal-note">Пользовательское соглашение</a>
-        <small>Юридические страницы нужно заполнить перед публикацией.</small>
+      <div className="legal-links">
+        {legalLinks.map((link) => (
+          <a key={link.href} href={link.href}>
+            {link.label}
+          </a>
+        ))}
+        <small>
+          Информация на сайте не является публичной офертой. Условия занятий обсуждаются индивидуально.
+          <br />
+          TODO перед публикацией: заполнить домен, дату документов и ИНН при необходимости.
+        </small>
       </div>
     </footer>
   )

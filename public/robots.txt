@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Replace TODO_DOMAIN before public launch.
+Sitemap: https://TODO_DOMAIN/sitemap.xml
