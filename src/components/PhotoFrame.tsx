@@ -32,7 +32,7 @@ export function PhotoFrame({
           onError={() => setFailed(true)}
         />
       ) : (
-        <div className="photo-frame__fallback" aria-label={`${alt}. Фото нужно добавить в ${src}`}>
+        <div className="photo-frame__fallback" aria-label={alt}>
           <span>{name}</span>
           <small>{note}</small>
         </div>

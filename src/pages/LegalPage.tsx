@@ -14,14 +14,14 @@ type LegalPageData = {
   }>
 }
 
-const commonOperator = `${legalConfig.operatorFullName}, статус: ${legalConfig.operatorStatus}, город: ${legalConfig.operatorCity}, ИНН: ${legalConfig.operatorInn}.`
+const commonOperator = `${legalConfig.operatorFullName}, статус: ${legalConfig.operatorStatus}, город: ${legalConfig.operatorCity}.`
 
 const legalPages: Record<LegalPageKey, LegalPageData> = {
   privacy: {
     title: 'Политика обработки персональных данных',
     version: legalConfig.privacyVersion,
     intro:
-      'Документ описывает, какие данные могут обрабатываться при обращении по вопросам репетиторских занятий PRIME ACADEMY. На текущем MVP сайт не отправляет заявки через форму и не сохраняет персональные данные.',
+      'Документ описывает, какие данные могут обрабатываться при обращении по вопросам репетиторских занятий PRIME ACADEMY.',
     sections: [
       {
         title: '1. Оператор',
@@ -40,13 +40,12 @@ const legalPages: Record<LegalPageKey, LegalPageData> = {
         ],
       },
       {
-        title: '3. Что сайт не делает на MVP',
+        title: '3. Что не входит в работу сайта',
         items: [
-          'не принимает оплату и не подключает банковские карты;',
-          'не создает личный кабинет и не проводит регистрацию;',
-          'не отправляет форму заявки на сервер;',
-          'не использует cookies, рекламные пиксели и системы аналитики;',
-          'не подключает CRM, Firebase, Supabase, Google Forms, Airtable, Notion, Tally или Typeform.',
+          'оплата и расписание обсуждаются индивидуально после личного общения;',
+          'сайт не требует регистрации для просмотра информации;',
+          'первый контакт проходит через Telegram по инициативе пользователя;',
+          'cookies, рекламные пиксели и системы аналитики не используются.',
         ],
       },
       {
@@ -110,7 +109,7 @@ const legalPages: Record<LegalPageKey, LegalPageData> = {
       {
         title: '4. Важные ограничения',
         paragraphs: [
-          'Сайт не принимает оплату и не создает личный кабинет. Обращение в Telegram не является покупкой и не обязывает оплачивать занятия.',
+          'Обращение в Telegram не является покупкой и не обязывает оплачивать занятия.',
           'Стоимость, формат и расписание обсуждаются индивидуально после обращения.',
         ],
       },
@@ -144,9 +143,9 @@ const legalPages: Record<LegalPageKey, LegalPageData> = {
         ],
       },
       {
-        title: '3. Без автоматических рассылок на MVP',
+        title: '3. Канал без автоматических рассылок',
         paragraphs: [
-          'На текущем MVP сайт не подключает email-рассылки, SMS-рассылки, push-уведомления, рекламные пиксели или системы аналитики.',
+          'Сайт не подключает email-рассылки, SMS-рассылки, push-уведомления, рекламные пиксели или системы аналитики.',
         ],
       },
     ],
@@ -155,13 +154,13 @@ const legalPages: Record<LegalPageKey, LegalPageData> = {
     title: 'Пользовательское соглашение',
     version: legalConfig.termsVersion,
     intro:
-      'Соглашение описывает условия использования сайта PRIME ACADEMY как информационного MVP-сайта о репетиторских занятиях по физике.',
+      'Соглашение описывает условия использования сайта PRIME ACADEMY как информационного сайта о репетиторских занятиях по физике.',
     sections: [
       {
         title: '1. Статус сайта',
         paragraphs: [
           'Сайт носит информационный характер и помогает пользователю связаться с Кириллом для обсуждения репетиторских занятий по физике.',
-          'На текущем MVP сайт не является образовательной платформой, не выдает документы об образовании и не предоставляет личный кабинет.',
+          'Сайт не является образовательной платформой и не выдает документы об образовании.',
         ],
       },
       {
@@ -195,12 +194,12 @@ const legalPages: Record<LegalPageKey, LegalPageData> = {
     title: 'Cookies и аналитика',
     version: '1.0',
     intro:
-      'На текущем MVP сайт PRIME ACADEMY не использует cookies, рекламные пиксели и системы веб-аналитики.',
+      'На сайте PRIME ACADEMY не подключены рекламные пиксели и системы веб-аналитики.',
     sections: [
       {
         title: '1. Cookies',
         paragraphs: [
-          'Сайт не устанавливает cookies для аналитики, рекламы, ретаргетинга, авторизации или хранения заявок.',
+          'Файлы cookies для аналитики, рекламы, ретаргетинга, авторизации или хранения обращений не подключены.',
         ],
       },
       {
@@ -239,7 +238,7 @@ export function LegalPage({ pageKey }: LegalPageProps) {
 
         <div className="legal-meta">
           <span>Дата вступления в силу: {legalConfig.effectiveDate}</span>
-          <span>Домен: {legalConfig.siteDomain}</span>
+          {legalConfig.siteDomain ? <span>Домен: {legalConfig.siteDomain}</span> : null}
         </div>
 
         <div className="legal-sections">
