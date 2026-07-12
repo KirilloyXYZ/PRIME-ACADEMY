@@ -32,18 +32,11 @@ npm run lint
 
 ## Images
 
-Teacher photos are stored in `public/images`:
-
-- `kirill-hero.jpg` - first screen hero image for Kirill.
-- `ira-hero.jpg` - first screen hero image for Irina.
-- `kirill-profile.jpg` - teacher profile image for Kirill.
-- `ira-profile.jpg` - teacher profile image for Irina.
-
-The app shows fallback cards if an image file is unavailable.
+Teacher and course photos are imported from `src/assets/images` so Vite can fingerprint and optimize the final build assets.
 
 ## Project Notes
 
-- The main contact scenario opens Kirill's Telegram: `https://t.me/Total_victories`.
+- The main contact scenario opens the Telegram bot: `https://t.me/primephys_bot`.
 - The project Telegram channel is `https://t.me/primephys`.
 - Legal pages are available at `/privacy`, `/personal-data-consent`, `/marketing-consent`, `/terms`, and `/cookies`.
 - Before connecting analytics, pixels, payments, account registration, or server-side forms, update the legal documents and user-facing copy.

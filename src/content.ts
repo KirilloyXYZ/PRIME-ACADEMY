@@ -1,18 +1,10 @@
 import {
-  Atom,
   BadgeCheck,
+  BookOpenCheck,
   BrainCircuit,
   ClipboardCheck,
-  FlaskConical,
-  GraduationCap,
-  MessageCircle,
-  Orbit,
   PenLine,
-  Route,
-  Send,
-  Sparkles,
   Target,
-  Trophy,
   Users,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
@@ -21,513 +13,364 @@ import irinaHeroCurrentPhoto from './assets/images/ira-hero-current.jpg'
 import irinaCasualPhoto from './assets/images/irina-casual-course.jpg'
 import currentIrinaTeacherPhoto from './assets/images/irina-studio-teacher.jpg'
 import kirillBoardPhoto from './assets/images/kirill-board-course.jpg'
-import kirillCampusPhoto from './assets/images/kirill-campus-teacher.jpg'
 import kirillHeroCurrentPhoto from './assets/images/kirill-hero-current.jpg'
 import kirillStudioCoursePhoto from './assets/images/kirill-studio-course.jpg'
 
-export {
-  currentIrinaTeacherPhoto,
-  irinaCasualPhoto,
-  irinaHeroCurrentPhoto,
-  kirillBoardPhoto,
-  kirillCampusPhoto as kirillTeacherPhoto,
-  kirillHeroCurrentPhoto,
-  kirillStudioCoursePhoto,
+export type ResponsiveImagePosition = {
+  desktop?: string
+  tablet?: string
+  mobile?: string
 }
 
-export type CardItem = {
-  title: string
-  text: string
-  tag?: string
-  icon: LucideIcon
-  signal: string
-}
-
-export type DirectionItem = {
-  title: string
-  audience: string
-  includes: string[]
-  accent: string
-  icon: LucideIcon
-  signal: string
+export type NavItem = {
+  label: string
+  href: string
 }
 
 export type Teacher = {
+  id: 'kirill' | 'irina'
   name: string
   role: string
   image: string
-  imagePosition: string
+  imageAlt: string
+  imagePosition: ResponsiveImagePosition
+  imageScale?: number
   facts: string[]
   quote: string
   strengths: string[]
-  ctaLabel: string
-  botStart: string
 }
 
-export type MethodStep = {
-  title: string
-  text: string
-  formula: string
-}
-
-export type TrialCard = {
-  title: string
-  text: string
-  icon: LucideIcon
-}
-
-export type PricingPlan = {
+export type Course = {
+  id: 'ege' | 'oge' | 'olympiad' | 'school' | 'individual'
   title: string
   badge: string
   price: string
+  short: string
   description: string
-  features: string[]
-  icon: LucideIcon
+  format: string
+  duration: string
   image: string
-  highlighted?: boolean
-  teacherOptions?: Array<{
-    name: string
-    image: string
-    botStart: string
-  }>
-  botStart: string
-}
-
-export type CourseCard = {
-  title: string
-  badge: string
-  price: string
+  imageAlt: string
+  imagePosition: ResponsiveImagePosition
+  imageScale?: number
   tags: string[]
-  image: string
-  imagePosition?: string
+  includes: string[]
+  details: string[]
   botStart: string
 }
 
-export type IncludedItem = {
+export type LearningStage = {
+  title: string
+  eyebrow: string
+  text: string
+  marker: string
+  icon: LucideIcon
+}
+
+export type ProofItem = {
   title: string
   text: string
+  accent: string
   icon: LucideIcon
 }
 
-export const navItems = [
-  { label: 'Направления', href: '/#directions' },
-  { label: 'Методика', href: '/#method' },
-  { label: 'Тарифы', href: '/#pricing' },
+export type FaqItem = {
+  question: string
+  answer: string
+}
+
+export const navItems: NavItem[] = [
+  { label: 'Курсы', href: '/#courses' },
+  { label: 'Как мы учим', href: '/#learning' },
   { label: 'Преподаватели', href: '/#teachers' },
-  { label: 'Бесплатно', href: '/#trial' },
+  { label: 'Материалы', href: '/#materials' },
   { label: 'FAQ', href: '/#faq' },
 ]
 
-export const heroAudienceChips = [
-  'Пробное занятие бесплатно',
-  'Индивидуально от 2 500 ₽',
-  'Курсы от 3 500 ₽ / месяц',
-  'Проверка ДЗ и куратор',
-]
+export const heroTrustItems = ['студенты НИЯУ МИФИ', 'ОГЭ / ЕГЭ / олимпиады', 'занятия ведут лично', 'без зубрёжки']
 
-export const trialCards: TrialCard[] = [
+export const proofItems: ProofItem[] = [
   {
-    title: 'Диагностика уровня',
-    text: 'Понимаем, где проблема: теория, математика, оформление или страх задач.',
+    title: 'Сначала диагностика',
+    text: 'Смотрим цель, текущий уровень и типичные ошибки. После этого курс не выглядит случайным набором тем.',
+    accent: 'старт без хаоса',
     icon: Target,
   },
   {
-    title: 'Мини-разбор темы',
-    text: 'Показываем, как объясняем физику через связи, а не через зубрёжку.',
-    icon: BrainCircuit,
-  },
-  {
-    title: 'План подготовки',
-    text: 'После занятия предлагаем подходящий формат: индивидуально, курс с семинарами или курс без семинаров.',
-    icon: Route,
-  },
-]
-
-export const pricingPlans: PricingPlan[] = [
-  {
-    title: 'Индивидуальные занятия',
-    badge: 'Пробное занятие бесплатно',
-    price: '2 500 ₽ / занятие',
-    description: 'Личный маршрут под уровень, цель и темп ученика. Можно заниматься с Кириллом или Ириной.',
-    features: [
-      'индивидуальный план',
-      'проверка домашних заданий',
-      'бесплатный доступ к лекциям',
-      'куратор на связи',
-      'ежемесячный пробник в формате онлайн-экзамена',
-      'скидка 10% при покупке больше одного занятия',
-    ],
-    icon: Sparkles,
-    image: kirillBoardPhoto,
-    teacherOptions: [
-      {
-        name: 'С Кириллом',
-        image: kirillBoardPhoto,
-        botStart: 'kirill_individual',
-      },
-      {
-        name: 'С Ириной',
-        image: irinaCasualPhoto,
-        botStart: 'irina_individual',
-      },
-    ],
-    botStart: 'individual_trial',
-  },
-  {
-    title: 'Курс с семинарами',
-    badge: 'Самый полный формат',
-    price: '5 500 ₽ / месяц',
-    description: 'Лекции, домашние задания и два семинара в неделю в маленьких группах.',
-    features: [
-      'доступ ко всем лекциям',
-      '2 семинара в неделю',
-      'маленькие группы',
-      'домашние задания с проверкой',
-      'куратор на связи',
-      'ежемесячный пробник в формате онлайн-экзамена',
-    ],
-    icon: Users,
-    image: kirillStudioCoursePhoto,
-    highlighted: true,
-    botStart: 'seminars_course',
-  },
-  {
-    title: 'Курс без семинаров',
-    badge: 'Самостоятельный темп',
-    price: '3 500 ₽ / месяц',
-    description: 'Для тех, кто хочет доступ к лекциям, домашкам, проверке и куратору, но без регулярных семинаров.',
-    features: [
-      'доступ ко всем лекциям',
-      'домашние задания с проверкой',
-      'куратор на связи',
-      'ежемесячный пробник в формате онлайн-экзамена',
-    ],
-    icon: PenLine,
-    image: irinaCasualPhoto,
-    botStart: 'self_course',
-  },
-]
-
-export const courseCards: CourseCard[] = [
-  {
-    title: 'Индивидуально с Кириллом',
-    badge: 'индивидуально',
-    price: '2 500 ₽ / занятие',
-    tags: ['личный план', 'ДЗ', 'лекции', 'пробник'],
-    image: kirillBoardPhoto,
-    imagePosition: 'center 42%',
-    botStart: 'kirill_individual',
-  },
-  {
-    title: 'Индивидуально с Ириной',
-    badge: 'индивидуально',
-    price: '2 500 ₽ / занятие',
-    tags: ['личный план', 'ДЗ', 'лекции', 'пробник'],
-    image: irinaCasualPhoto,
-    imagePosition: 'center 34%',
-    botStart: 'irina_individual',
-  },
-  {
-    title: 'ЕГЭ по физике',
-    badge: 'ЕГЭ',
-    price: 'от 3 500 ₽ / месяц',
-    tags: ['лекции', 'семинары', 'ДЗ', 'пробники'],
-    image: kirillStudioCoursePhoto,
-    imagePosition: 'center 34%',
-    botStart: 'ege_course',
-  },
-  {
-    title: 'ОГЭ по физике',
-    badge: 'ОГЭ',
-    price: 'от 3 500 ₽ / месяц',
-    tags: ['база', 'практика', 'ДЗ', 'куратор'],
-    image: currentIrinaTeacherPhoto,
-    imagePosition: 'center 28%',
-    botStart: 'oge_course',
-  },
-  {
-    title: 'Олимпиадная физика',
-    badge: 'олимпиады',
-    price: 'от 3 500 ₽ / месяц',
-    tags: ['сложные задачи', 'идеи', 'выводы', 'оценки'],
-    image: kirillCampusPhoto,
-    imagePosition: 'center 44%',
-    botStart: 'olympiad_course',
-  },
-  {
-    title: 'Школьная физика',
-    badge: 'база',
-    price: 'от 3 500 ₽ / месяц',
-    tags: ['пробелы', 'контрольные', 'ДЗ', 'объяснение'],
-    image: irinaHeroCurrentPhoto,
-    imagePosition: 'center 35%',
-    botStart: 'school_base_course',
-  },
-]
-
-export const audienceCards: CardItem[] = [
-  {
-    title: 'ОГЭ / 9 класс',
-    text: 'Разбираем школьную базу, формат ОГЭ и типичные ловушки в задачах.',
-    tag: 'экзамен',
+    title: 'Домашка возвращается в разбор',
+    text: 'Ошибки из домашних заданий становятся темой следующего занятия, а не просто красной отметкой.',
+    accent: 'проверка ДЗ',
     icon: ClipboardCheck,
-    signal: 'измерение',
   },
   {
-    title: 'ЕГЭ / 10-11 класс',
-    text: 'Собираем маршрут подготовки: теория, практика, домашки и разбор ошибок.',
-    tag: 'система',
-    icon: Target,
-    signal: 'график + вектор',
+    title: 'Пробники показывают динамику',
+    text: 'Регулярно проверяем, какие темы уже держатся, а что нужно пересобрать в маршруте.',
+    accent: 'контроль прогресса',
+    icon: BadgeCheck,
   },
   {
-    title: 'Олимпиады / сложные задачи',
-    text: 'Тренируем нестандартное мышление, физические оценки и аккуратный вывод.',
-    tag: 'глубина',
-    icon: Trophy,
-    signal: 'ΔE = 0',
-  },
-  {
-    title: 'Школьная физика / база',
-    text: 'Закрываем пробелы, убираем страх формул и показываем связи между темами.',
-    tag: 'карта тем',
-    icon: BrainCircuit,
-    signal: 'тема → закон',
-  },
-]
-
-export const methodSteps: MethodStep[] = [
-  {
-    title: 'Читаем условие',
-    text: 'Отделяем физику от лишних слов и замечаем ключевые величины.',
-    formula: 'величины',
-  },
-  {
-    title: 'Выписываем дано',
-    text: 'Фиксируем известные величины, единицы и ограничения задачи.',
-    formula: '[Н], [м], [с]',
-  },
-  {
-    title: 'Ищем цель',
-    text: 'Понимаем, что нужно найти и какой ответ будет иметь смысл.',
-    formula: 'что найти',
-  },
-  {
-    title: 'Строим модель',
-    text: 'Выбираем схему: тело, сила, поле, график, траектория или процесс.',
-    formula: 'модель',
-  },
-  {
-    title: 'Выбираем закон',
-    text: 'Подбираем не формулу наугад, а физический принцип под модель.',
-    formula: 'F = ma',
-  },
-  {
-    title: 'Проверяем ответ',
-    text: 'Сверяем размерность, знак, порядок величины и физический смысл.',
-    formula: 'проверка',
-  },
-]
-
-export const directions: DirectionItem[] = [
-  {
-    title: 'ЕГЭ по физике',
-    audience: '10-11 классам, которым нужна системная подготовка без хаоса.',
-    includes: ['разбор кодификатора', 'типовые задания', 'вторая часть', 'план подготовки'],
-    accent: 'экзамен как маршрут',
-    icon: GraduationCap,
-    signal: 'v(t)',
-  },
-  {
-    title: 'ОГЭ по физике',
-    audience: '9 классам, которым нужно уверенно закрыть экзамен и школьную базу.',
-    includes: ['формулы без зубрёжки', 'эксперименты', 'практика вариантов', 'ошибки в оформлении'],
-    accent: 'база без паники',
-    icon: Atom,
-    signal: 'p = F/S',
-  },
-  {
-    title: 'Олимпиадная физика',
-    audience: 'Тем, кто хочет идти глубже школьного учебника.',
-    includes: ['нестандартные задачи', 'идеи решений', 'физические оценки', 'логика вывода'],
-    accent: 'мышление шире шаблона',
-    icon: Orbit,
-    signal: 'ΔE = 0',
-  },
-  {
-    title: 'Школьная программа',
-    audience: 'Ученикам, которым физика кажется набором случайных формул.',
-    includes: ['закрытие пробелов', 'подготовка к контрольным', 'домашние задания', 'объяснение простым языком'],
-    accent: 'темы становятся картой',
-    icon: FlaskConical,
-    signal: 'тема → закон → задача',
-  },
-]
-
-export const learningSteps = [
-  {
-    title: 'Диагностика уровня',
-    text: 'Понимаем, где пробел: теория, математика, оформление или страх задач.',
-    icon: Target,
-    signal: 'уровень',
-  },
-  {
-    title: 'Теория через логику',
-    text: 'Не диктуем конспект, а показываем причинно-следственные связи и физический смысл.',
-    icon: BrainCircuit,
-    signal: 'модель',
-  },
-  {
-    title: 'Практика на задачах',
-    text: 'Идём от базовых моделей к экзаменационным и олимпиадным ситуациям.',
-    icon: PenLine,
-    signal: 'практика',
-  },
-  {
-    title: 'Домашки и обратная связь',
-    text: 'Ученик получает практику, а преподаватель видит ошибки и корректирует маршрут.',
-    icon: Route,
-    signal: 'обратная связь',
+    title: 'Занятия ведут авторы',
+    text: 'На старте ученик видит Кирилла и Ирину, а не безликую платформу с неизвестными преподавателями.',
+    accent: 'личный формат',
+    icon: Users,
   },
 ]
 
 export const teachers: Teacher[] = [
   {
+    id: 'kirill',
     name: 'Кирилл Кузнецов',
     role: 'Репетитор по физике',
-    image: kirillCampusPhoto,
-    imagePosition: 'center 54%',
-    facts: ['98 баллов по физике', 'студент НИЯУ МИФИ', 'олимпиадный опыт', 'индивидуальные занятия'],
+    image: kirillStudioCoursePhoto,
+    imageAlt: 'Кирилл Кузнецов, преподаватель физики PRIME ACADEMY',
+    imagePosition: {
+      desktop: '50% 34%',
+      tablet: '50% 30%',
+      mobile: '50% 28%',
+    },
+    facts: ['98 баллов по физике', 'студент НИЯУ МИФИ', 'олимпиадный опыт', 'объясняет через модели'],
     quote: 'Физика начинается там, где формула перестаёт быть набором букв.',
     strengths: [
-      'разбирает задачу до деталей',
-      'ведёт к пониманию, а не заучиванию',
-      'объясняет сложное через связи',
+      'разбирает условие до понятной схемы',
+      'показывает связь между законом, формулой и задачей',
+      'ведёт к пониманию, а не к механическому заучиванию',
       'помогает выстроить маршрут подготовки',
     ],
-    ctaLabel: 'Записаться к Кириллу',
-    botStart: 'kirill_teacher',
   },
   {
+    id: 'irina',
     name: 'Ирина Данилова',
     role: 'Репетитор по физике',
     image: currentIrinaTeacherPhoto,
-    imagePosition: 'center 25%',
-    facts: ['98 баллов по физике', 'студентка НИЯУ МИФИ', 'олимпиадный опыт', 'индивидуальные занятия'],
+    imageAlt: 'Ирина Данилова, преподаватель физики PRIME ACADEMY',
+    imagePosition: {
+      desktop: '50% 24%',
+      tablet: '50% 22%',
+      mobile: '50% 20%',
+    },
+    facts: ['98 баллов по физике', 'студентка НИЯУ МИФИ', 'олимпиадный опыт', 'структурирует сложные темы'],
     quote: 'Сложная тема становится понятной, когда у неё появляется структура.',
     strengths: [
-      'объясняет сложные вещи простым языком',
-      'помогает выстроить систему',
-      'готовит к ЕГЭ, ОГЭ и олимпиадам',
-      'поддерживает темп и мотивацию',
+      'объясняет простым языком без потери смысла',
+      'помогает закрывать пробелы в школьной базе',
+      'держит темп подготовки и регулярность',
+      'собирает сложные темы в понятные блоки',
     ],
-    ctaLabel: 'Записаться к Ирине',
-    botStart: 'irina_teacher',
   },
 ]
 
-export const includedItems: IncludedItem[] = [
+export const courses: Course[] = [
   {
-    title: 'Лекции',
-    text: 'Доступ к материалам, которые объясняют темы через модели, связи и задачи.',
-    icon: BrainCircuit,
+    id: 'ege',
+    title: 'ЕГЭ по физике',
+    badge: '10–11 класс',
+    price: 'от 3 500 ₽ / месяц',
+    short: 'Системная подготовка к экзамену: теория, задачи, домашка и пробники.',
+    description:
+      'Собираем кодификатор в понятный маршрут: от базовых моделей до развёрнутых решений и оформления второй части.',
+    format: 'курс или индивидуальный маршрут',
+    duration: 'учебный год или интенсив',
+    image: kirillHeroCurrentPhoto,
+    imageAlt: 'Кирилл на учебной фотосессии PRIME ACADEMY',
+    imagePosition: {
+      desktop: '47% 28%',
+      tablet: '48% 24%',
+      mobile: '50% 18%',
+    },
+    tags: ['ЕГЭ', 'пробники', 'ДЗ с проверкой'],
+    includes: ['разбор кодификатора', 'задачи первой и второй части', 'оформление решений', 'ежемесячные пробники'],
+    details: [
+      'Подходит, если нужно идти по понятной системе, а не прыгать между темами.',
+      'После диагностики выбираем формат: индивидуально, курс с разборами или самостоятельный курс с проверкой.',
+    ],
+    botStart: 'goal_ege',
   },
   {
-    title: 'Домашние задания',
-    text: 'Задания проверяются, а ошибки превращаются в точки роста.',
-    icon: ClipboardCheck,
+    id: 'oge',
+    title: 'ОГЭ по физике',
+    badge: '9 класс',
+    price: 'от 3 500 ₽ / месяц',
+    short: 'Закрываем школьную базу, эксперименты, типовые задачи и оформление.',
+    description:
+      'Убираем страх перед формулами через понятные модели: что происходит, какие величины важны и какой закон нужен.',
+    format: 'курс или индивидуальная подготовка',
+    duration: 'от диагностики до экзамена',
+    image: currentIrinaTeacherPhoto,
+    imageAlt: 'Ирина Данилова в учебном образе PRIME ACADEMY',
+    imagePosition: {
+      desktop: '50% 18%',
+      tablet: '50% 18%',
+      mobile: '50% 14%',
+    },
+    tags: ['ОГЭ', 'школьная база', 'практика'],
+    includes: ['базовая теория', 'экспериментальные задания', 'типовые ловушки', 'тренировка вариантов'],
+    details: [
+      'Подходит, если физика кажется набором случайных формул.',
+      'На занятиях ученик учится видеть процесс, а не только искать подходящую формулу.',
+    ],
+    botStart: 'goal_oge',
   },
   {
-    title: 'Куратор',
-    text: 'Можно задавать вопросы по темам, домашкам и организации подготовки.',
-    icon: MessageCircle,
+    id: 'olympiad',
+    title: 'Олимпиадная физика',
+    badge: 'углублённый уровень',
+    price: 'от 2 500 ₽ / занятие',
+    short: 'Задачи глубже школьного учебника: идеи решений, оценки и выводы.',
+    description:
+      'Работаем с мышлением: как увидеть физическую модель, сделать оценку, вывести связь и не потеряться в нестандартной задаче.',
+    format: 'индивидуально или мини-группа',
+    duration: 'по цели и уровню',
+    image: kirillBoardPhoto,
+    imageAlt: 'Преподаватель объясняет физическую задачу у доски',
+    imagePosition: {
+      desktop: '54% 34%',
+      tablet: '54% 30%',
+      mobile: '58% 28%',
+    },
+    tags: ['олимпиады', 'сложные задачи', 'мышление'],
+    includes: ['идеи решений', 'физические оценки', 'нестандартные задачи', 'аккуратный вывод'],
+    details: [
+      'Подходит ученикам, которым хочется понимать физику глубже школьного формата.',
+      'Олимпиады не обещаем как гарантированный результат, но даём сильную систему разбора задач.',
+    ],
+    botStart: 'goal_olympiad',
   },
   {
-    title: 'Пробники',
-    text: 'Раз в месяц пишем пробник в формате онлайн-экзамена, чтобы отслеживать динамику.',
+    id: 'school',
+    title: 'Школьная физика',
+    badge: '7–11 класс',
+    price: 'от 2 500 ₽ / занятие',
+    short: 'Помогаем с текущими темами, контрольными, домашкой и пробелами.',
+    description:
+      'Собираем школьные темы в связанную картину: закон, модель, пример, задача, проверка. Без ощущения, что всё нужно просто выучить.',
+    format: 'индивидуальный маршрут',
+    duration: 'по запросу ученика',
+    image: irinaCasualPhoto,
+    imageAlt: 'Ирина в повседневном учебном кадре',
+    imagePosition: {
+      desktop: '48% 35%',
+      tablet: '48% 30%',
+      mobile: '50% 25%',
+    },
+    tags: ['школа', 'пробелы', 'контрольные'],
+    includes: ['объяснение темы', 'разбор домашки', 'подготовка к контрольным', 'укрепление базы'],
+    details: [
+      'Подходит, если ученик теряется на уроках или не понимает, откуда берутся формулы.',
+      'Формат и преподавателя подбираем после диагностики по уровню, цели и расписанию.',
+    ],
+    botStart: 'goal_school',
+  },
+  {
+    id: 'individual',
+    title: 'Индивидуальная подготовка',
+    badge: 'личный маршрут',
+    price: '2 500 ₽ / занятие',
+    short: 'Точечная работа с пробелами, темпом и задачами конкретного ученика.',
+    description:
+      'После диагностики выбираем преподавателя и собираем маршрут: что закрыть сейчас, что тренировать каждую неделю и как проверять прогресс.',
+    format: 'один на один',
+    duration: 'гибко по расписанию',
+    image: kirillStudioCoursePhoto,
+    imageAlt: 'Кирилл Кузнецов на учебной фотосессии PRIME ACADEMY',
+    imagePosition: {
+      desktop: '50% 34%',
+      tablet: '50% 30%',
+      mobile: '50% 26%',
+    },
+    tags: ['индивидуально', 'ДЗ', 'пробники'],
+    includes: ['личный план', 'разбор ошибок', 'проверка домашки', 'подбор преподавателя школой'],
+    details: [
+      'Подходит, если нужна точная работа с текущими пробелами или нестандартная цель.',
+      'Преподавателя для индивидуальных занятий подбираем мы: по уровню, задаче, темпу и свободному расписанию.',
+    ],
+    botStart: 'format_individual',
+  },
+]
+
+export const learningStages: LearningStage[] = [
+  {
+    title: 'Диагностика',
+    eyebrow: '01 / старт',
+    text: 'Смотрим цель, уровень и типичные ошибки. Так становится понятно, какой курс или формат даст больше пользы.',
+    marker: 'цель → уровень → план',
     icon: Target,
   },
   {
-    title: 'Семинары',
-    text: 'На тарифе с семинарами проходят 2 занятия в неделю в маленьких группах.',
-    icon: Users,
+    title: 'Понятная модель темы',
+    eyebrow: '02 / смысл',
+    text: 'Разбираем, что происходит в задаче: процесс, величины, связь между законом и формулой.',
+    marker: 'процесс → закон → формула',
+    icon: BrainCircuit,
   },
   {
-    title: 'Индивидуальный план',
-    text: 'На индивидуальных занятиях маршрут строится под конкретного ученика.',
-    icon: Route,
+    title: 'Практика и домашка',
+    eyebrow: '03 / закрепление',
+    text: 'Решаем задачи разного уровня, даём домашку и возвращаем ошибки в следующий разбор.',
+    marker: 'задача → ошибка → разбор',
+    icon: PenLine,
+  },
+  {
+    title: 'Пробники и корректировка',
+    eyebrow: '04 / прогресс',
+    text: 'Пробники показывают, какие темы держатся, а какие нужно усилить в следующей неделе.',
+    marker: 'проверка → новый шаг',
+    icon: BookOpenCheck,
   },
 ]
 
-export const afterRequestSteps = [
-  {
-    title: 'Выбираешь формат',
-    text: 'Индивидуально, курс с семинарами или курс без семинаров.',
-    icon: Send,
-  },
-  {
-    title: 'Отвечаешь в Telegram-боте',
-    text: 'Бот спросит класс, цель, направление и удобное время.',
-    icon: MessageCircle,
-  },
-  {
-    title: 'Проходишь бесплатное занятие',
-    text: 'На пробном занятии смотрим уровень, пробелы и подходящий темп.',
-    icon: BadgeCheck,
-  },
-  {
-    title: 'Начинаешь подготовку',
-    text: 'После пробного занятия выбираешь формат, расписание и старт обучения.',
-    icon: Route,
-  },
+export const learningOutputs = [
+  'понятный конспект по теме',
+  'домашнее задание с проверкой',
+  'разбор ошибок без воды',
+  'следующий шаг в маршруте',
 ]
 
-export const faqItems = [
+export const materialsHighlights = ['разборы задач', 'схемы и конспекты', 'материалы к экзаменам']
+
+export const faqItems: FaqItem[] = [
   {
     question: 'Можно ли сначала попробовать бесплатно?',
     answer:
-      'Да. Первое индивидуальное занятие бесплатное: знакомимся, смотрим уровень и понимаем, какой формат подойдёт.',
+      'Да. Начинаем с бесплатной диагностики: смотрим цель, уровень и подбираем ближайший шаг.',
   },
   {
     question: 'Сколько стоят занятия?',
     answer:
-      'Индивидуальное занятие стоит 2 500 ₽. Курс с семинарами — 5 500 ₽ в месяц. Курс без семинаров — 3 500 ₽ в месяц.',
+      'Индивидуальное занятие стоит 2 500 ₽. Курсы с проверкой и разборами начинаются от 3 500 ₽ в месяц. Точный формат подбираем после диагностики.',
   },
   {
-    question: 'Чем курс с семинарами отличается от курса без семинаров?',
+    question: 'Можно ли выбрать Кирилла или Ирину?',
     answer:
-      'В курсе с семинарами есть 2 занятия в неделю в маленьких группах. В курсе без семинаров остаются лекции, домашние задания с проверкой, куратор и ежемесячный пробник.',
+      'Для индивидуального формата преподавателя подбираем мы: учитываем цель, уровень, темп, расписание и то, кто лучше подходит под задачу ученика.',
   },
   {
-    question: 'Что входит в индивидуальные занятия?',
+    question: 'Чем курс отличается от индивидуальных занятий?',
     answer:
-      'Индивидуальный план, проверка домашних заданий, доступ к лекциям, куратор и ежемесячный пробник.',
+      'Курс даёт готовую систему по направлению: лекции, практика, домашка и проверка. Индивидуальные занятия точнее подстраиваются под конкретные пробелы ученика.',
   },
   {
-    question: 'Как проходит пробник?',
+    question: 'Что входит в проверку домашних заданий?',
     answer:
-      'Раз в месяц ученики пишут пробник в формате онлайн-экзамена. Это помогает отслеживать динамику и видеть, какие темы нужно усилить.',
+      'Мы смотрим ход решения, оформление и типичные ошибки. После проверки становится понятно, что закрепилось, а что нужно пересобрать.',
   },
   {
-    question: 'Кто такой куратор?',
-    answer: 'Куратор помогает с вопросами по обучению, домашним заданиям и организации подготовки.',
+    question: 'Как проходят пробники?',
+    answer:
+      'Раз в месяц ученик пишет пробник в формате онлайн-экзамена. Это помогает видеть динамику и заранее усиливать слабые темы.',
   },
   {
     question: 'Как происходит оплата?',
     answer:
-      'На сайте оплаты нет. После заявки в Telegram-боте мы уточняем формат, отвечаем на вопросы и объясняем дальнейшие шаги.',
-  },
-  {
-    question: 'Можно ли выбрать Кирилла или Ирину?',
-    answer: 'Да, для индивидуальных занятий можно выбрать преподавателя, если есть свободные места в расписании.',
-  },
-  {
-    question: 'Есть ли скидка?',
-    answer: 'Да, на индивидуальные занятия действует скидка 10% при покупке больше одного занятия.',
+      'На сайте оплаты нет. После заявки мы уточняем формат, отвечаем на вопросы и объясняем дальнейшие шаги.',
   },
   {
     question: 'Гарантируете ли вы конкретный балл?',
     answer:
-      'Мы не обещаем магический результат без работы ученика. Мы даём систему, практику, проверку, обратную связь и понятный маршрут подготовки.',
+      'Нет. Мы не обещаем конкретный балл без работы ученика. Мы даём систему, практику, проверку, обратную связь и понятный маршрут.',
   },
 ]
+
+export const imageAssets = {
+  kirillHeroCurrentPhoto,
+  irinaHeroCurrentPhoto,
+}
