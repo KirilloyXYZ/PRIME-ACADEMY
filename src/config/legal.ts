@@ -8,7 +8,7 @@ export const legalConfig = {
   operatorStatus: 'самозанятый',
   operatorCity: 'Москва',
   operatorEmail: 'kirilkuznecov0018@gmail.com',
-  personalDataContactName: 'Кирилл Кузнецов',
+  personalDataContactName: 'Кирилл Алексеевич',
   telegramContact: TELEGRAM_BOT_URL,
   telegramContactLabel: TELEGRAM_BOT_LABEL,
   telegramChannel: TELEGRAM_CHANNEL_URL,

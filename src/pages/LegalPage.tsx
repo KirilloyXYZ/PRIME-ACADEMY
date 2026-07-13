@@ -1,4 +1,5 @@
-import { ArrowLeft } from 'lucide-react'
+﻿import { ArrowLeft } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import { legalConfig } from '../config/legal'
 
 export type LegalPageKey = 'privacy' | 'personal-data-consent' | 'marketing-consent' | 'terms' | 'cookies'
@@ -34,7 +35,7 @@ const legalPages: Record<LegalPageKey, LegalPageData> = {
         title: '2. Какие данные могут обрабатываться',
         items: [
           'имя или способ обращения, если пользователь сам сообщает его в Telegram;',
-          'Telegram username или иные контактные данные, которые пользователь сам отправляет в Telegram-бот PRIME ACADEMY;',
+          'Telegram username или иные контактные данные, которые пользователь сам отправляет в Telegram-контакт PRIME ACADEMY;',
           'класс ученика, цель подготовки, направление занятий и комментарии по обучению;',
           'сведения, необходимые для обсуждения формата, стоимости и расписания занятий.',
         ],
@@ -44,14 +45,14 @@ const legalPages: Record<LegalPageKey, LegalPageData> = {
         items: [
           'оплата и расписание обсуждаются индивидуально после личного общения;',
           'сайт не требует регистрации для просмотра информации;',
-          'первый контакт проходит через Telegram-бот PRIME ACADEMY по инициативе пользователя;',
+          'первый контакт проходит через Telegram-контакт PRIME ACADEMY по инициативе пользователя;',
           'cookies, рекламные пиксели и системы аналитики не используются.',
         ],
       },
       {
         title: '4. Цели обработки',
         items: [
-          'ответить на обращение пользователя в Telegram-боте PRIME ACADEMY;',
+          'ответить на обращение пользователя в Telegram-контакте PRIME ACADEMY;',
           'уточнить уровень, класс, направление и цель подготовки;',
           'обсудить формат, расписание, стоимость и условия репетиторских занятий;',
           'вести дальнейшую коммуникацию по вопросу занятий, если пользователь продолжает общение.',
@@ -82,7 +83,7 @@ const legalPages: Record<LegalPageKey, LegalPageData> = {
     title: 'Согласие на обработку персональных данных',
     version: legalConfig.consentVersion,
     intro:
-      'Это согласие применяется, когда пользователь сам открывает Telegram-бот PRIME ACADEMY по ссылке с сайта и сообщает данные для связи и обсуждения занятий.',
+      'Это согласие применяется, когда пользователь сам открывает Telegram-контакт PRIME ACADEMY по ссылке с сайта и сообщает данные для связи и обсуждения занятий.',
     sections: [
       {
         title: '1. Кому дается согласие',
@@ -109,7 +110,7 @@ const legalPages: Record<LegalPageKey, LegalPageData> = {
       {
         title: '4. Важные ограничения',
         paragraphs: [
-          'Обращение в Telegram-бот не является покупкой и не обязывает оплачивать занятия.',
+          'Обращение в Telegram-контакт не является покупкой и не обязывает оплачивать занятия.',
           'Стоимость, формат и расписание обсуждаются индивидуально после обращения.',
         ],
       },
@@ -166,8 +167,8 @@ const legalPages: Record<LegalPageKey, LegalPageData> = {
       {
         title: '2. Не публичная оферта',
         paragraphs: [
-          'Информация на сайте не является публичной офертой. Условия занятий, стоимость, расписание и формат обсуждаются индивидуально после обращения в Telegram-бот.',
-          'Обращение в Telegram-бот не является покупкой и не обязывает пользователя оплачивать занятия.',
+          'Информация на сайте не является публичной офертой. Условия занятий, стоимость, расписание и формат обсуждаются индивидуально после обращения в Telegram-контакт.',
+          'Обращение в Telegram-контакт не является покупкой и не обязывает пользователя оплачивать занятия.',
         ],
       },
       {
@@ -228,10 +229,10 @@ export function LegalPage({ pageKey }: LegalPageProps) {
   return (
     <section className="legal-page">
       <div className="legal-shell">
-        <a className="back-link" href="/">
+        <Link className="back-link" to="/">
           <ArrowLeft aria-hidden="true" />
           На главную
-        </a>
+        </Link>
         <span className="legal-eyebrow">версия {page.version}</span>
         <h1>{page.title}</h1>
         <p className="legal-intro">{page.intro}</p>
@@ -260,3 +261,4 @@ export function LegalPage({ pageKey }: LegalPageProps) {
     </section>
   )
 }
+

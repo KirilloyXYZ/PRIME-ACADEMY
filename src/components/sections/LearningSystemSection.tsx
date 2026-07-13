@@ -1,63 +1,52 @@
-import { useState } from 'react'
 import { CheckCircle2 } from 'lucide-react'
-import { learningOutputs, learningStages } from '../../content'
-import { SectionHeading } from '../ui/SectionHeading'
+import { learningMethodBenefits, learningStages } from '../../content'
 
 export function LearningSystemSection() {
-  const [activeIndex, setActiveIndex] = useState(0)
-  const activeStage = learningStages[activeIndex]
-  const ActiveIcon = activeStage.icon
-
   return (
     <section className="page-section learning-section" id="learning">
       <div className="section-shell learning-shell">
-        <SectionHeading
-          eyebrow="как мы учим"
-          title="Один маршрут: понять, закрепить, исправить"
-          text="Здесь объединены методика и индивидуальный маршрут. Ученик не просто слушает объяснение, а проходит цикл: диагностика, модель темы, практика, домашка, пробник и корректировка плана."
-          light
-        />
+        <div className="learning-heading">
+          <span>вузовский формат для школьников</span>
+          <h2>Лекция, семинар, практика — один понятный цикл обучения</h2>
+          <p>
+            Сначала ученик разбирается в теории, затем применяет её на живом семинаре, закрепляет в домашней работе и
+            регулярно проверяет знания. На каждом этапе он получает обратную связь и понимает, что делать дальше.
+          </p>
+        </div>
 
-        <div className="learning-lab">
-          <div className="learning-tabs" role="tablist" aria-label="Этапы обучения">
-            {learningStages.map((stage, index) => (
-              <button
-                key={stage.title}
-                type="button"
-                role="tab"
-                aria-selected={index === activeIndex}
-                aria-controls="learning-panel"
-                className={index === activeIndex ? 'learning-tab learning-tab--active' : 'learning-tab'}
-                onClick={() => setActiveIndex(index)}
-              >
-                <span>{stage.eyebrow}</span>
-                {stage.title}
-              </button>
+        <div className="learning-steps" aria-label="Цикл обучения PRIME ACADEMY">
+          {learningStages.map((stage) => {
+            const StageIcon = stage.icon
+
+            return (
+              <article className={stage.featured ? 'learning-step learning-step--featured' : 'learning-step'} key={stage.id}>
+                <div className="learning-step__top">
+                  <span>{stage.number}</span>
+                  <StageIcon aria-hidden="true" />
+                </div>
+                {stage.featured ? <strong className="learning-step__badge">Главное преимущество</strong> : null}
+                <small>{stage.label}</small>
+                <h3>{stage.title}</h3>
+                <p>{stage.text}</p>
+                {stage.note ? <p className="learning-step__note">{stage.note}</p> : null}
+                <code>{stage.marker}</code>
+              </article>
+            )
+          })}
+        </div>
+
+        <aside className="learning-benefit-strip" aria-labelledby="learning-benefit-title">
+          <h3 id="learning-benefit-title">Почему такой формат работает</h3>
+          <div>
+            {learningMethodBenefits.map((benefit) => (
+              <article key={benefit.title}>
+                <CheckCircle2 aria-hidden="true" />
+                <strong>{benefit.title}</strong>
+                <p>{benefit.text}</p>
+              </article>
             ))}
           </div>
-
-          <article className="learning-panel" id="learning-panel" role="tabpanel">
-            <div className="learning-panel__icon">
-              <ActiveIcon aria-hidden="true" />
-            </div>
-            <span>{activeStage.eyebrow}</span>
-            <h3>{activeStage.title}</h3>
-            <p>{activeStage.text}</p>
-            <code>{activeStage.marker}</code>
-          </article>
-
-          <div className="learning-output">
-            <h3>Что остаётся после занятия</h3>
-            <ul>
-              {learningOutputs.map((item) => (
-                <li key={item}>
-                  <CheckCircle2 aria-hidden="true" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
+        </aside>
       </div>
     </section>
   )

@@ -1,4 +1,5 @@
 import { Mail, MessageCircle } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import { navItems } from '../../content'
 import { legalConfig, legalLinks } from '../../config/legal'
 
@@ -6,10 +7,10 @@ export function Footer() {
   return (
     <footer className="site-footer">
       <div>
-        <a className="brand brand--footer" href="/">
+        <Link className="brand brand--footer" to="/">
           <span>PRIME</span>
           <strong>ACADEMY</strong>
-        </a>
+        </Link>
         <p>
           Авторская онлайн-школа физики: ОГЭ, ЕГЭ, олимпиады и школьная база без механической зубрёжки.
         </p>
@@ -17,9 +18,9 @@ export function Footer() {
 
       <nav className="footer-links" aria-label="Разделы сайта">
         {navItems.map((item) => (
-          <a key={item.href} href={item.href}>
+          <Link key={item.href} to={item.href}>
             {item.label}
-          </a>
+          </Link>
         ))}
       </nav>
 
@@ -40,9 +41,9 @@ export function Footer() {
 
       <div className="legal-links">
         {legalLinks.map((link) => (
-          <a key={link.href} href={link.href}>
+          <Link key={link.href} to={link.href}>
             {link.label}
-          </a>
+          </Link>
         ))}
         <small>Информация на сайте не является публичной офертой. Условия обучения уточняются после заявки.</small>
       </div>

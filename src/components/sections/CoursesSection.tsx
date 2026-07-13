@@ -1,6 +1,6 @@
 import { useRef } from 'react'
-import { ArrowLeft, ArrowRight } from 'lucide-react'
-import { courses } from '../../content'
+import { ArrowLeft, ArrowRight, CheckCircle2 } from 'lucide-react'
+import { courses, teachers } from '../../content'
 import { ButtonLink } from '../ui/ButtonLink'
 import { ResponsiveImage } from '../ui/ResponsiveImage'
 import { SectionHeading } from '../ui/SectionHeading'
@@ -29,18 +29,10 @@ export function CoursesSection() {
             title="Выбери курс, а детали подберём на диагностике"
             text="Курсы разделены по цели: экзамен, олимпиада, школьная база или индивидуальный маршрут. В карточке сразу видны цена, формат и что внутри."
           />
-          <div className="course-controls" aria-label="Листать курсы">
-            <button type="button" onClick={() => scrollCourses('prev')} aria-label="Предыдущие курсы">
-              <ArrowLeft aria-hidden="true" />
-            </button>
-            <button type="button" onClick={() => scrollCourses('next')} aria-label="Следующие курсы">
-              <ArrowRight aria-hidden="true" />
-            </button>
-          </div>
         </div>
 
         <div className="course-track" ref={trackRef}>
-          {courses.map((course) => (
+          {courses.map((course, index) => (
             <article className="course-card" key={course.id}>
               <div className="course-card__media">
                 <ResponsiveImage
@@ -53,19 +45,54 @@ export function CoursesSection() {
               </div>
               <div className="course-card__body">
                 <div className="course-card__tags">
-                  {course.tags.map((tag) => (
+                  {course.tags.slice(0, 3).map((tag) => (
                     <span key={tag}>{tag}</span>
                   ))}
                 </div>
                 <h3>{course.title}</h3>
                 <p>{course.short}</p>
-                <strong>{course.price}</strong>
+                <ul className="course-card__inside">
+                  {course.highlights.slice(0, 3).map((item) => (
+                    <li key={item}>
+                      <CheckCircle2 aria-hidden="true" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <div className="course-card__teachers">
+                  <div aria-hidden="true">
+                    {teachers.map((teacher) => (
+                      <ResponsiveImage key={teacher.id} src={teacher.image} alt="" position={teacher.imagePosition} />
+                    ))}
+                  </div>
+                  <span>{course.teacherLine}</span>
+                </div>
+                <div className="course-card__price">
+                  {course.pricePrefix ? <span>{course.pricePrefix}</span> : null}
+                  <strong>{course.priceValue}</strong>
+                  <small>{course.pricePeriod}</small>
+                </div>
                 <ButtonLink href={`/courses/${course.id}`} variant="primary" className="course-card__link" withArrow={false}>
-                  Подробнее
+                  Посмотреть программу
                 </ButtonLink>
               </div>
+              <span className="course-card__count" aria-hidden="true">
+                {String(index + 1).padStart(2, '0')}
+              </span>
             </article>
           ))}
+        </div>
+
+        <div className="course-slider-footer">
+          <span>01 / {String(courses.length).padStart(2, '0')}</span>
+          <div className="course-controls" aria-label="Листать курсы">
+            <button type="button" onClick={() => scrollCourses('prev')} aria-label="Предыдущие курсы">
+              <ArrowLeft aria-hidden="true" />
+            </button>
+            <button type="button" onClick={() => scrollCourses('next')} aria-label="Следующие курсы">
+              <ArrowRight aria-hidden="true" />
+            </button>
+          </div>
         </div>
       </div>
     </section>

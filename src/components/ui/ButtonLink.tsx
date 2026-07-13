@@ -1,4 +1,5 @@
 import { ArrowRight } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import type { ReactNode } from 'react'
 
 type ButtonLinkProps = {
@@ -19,17 +20,25 @@ export function ButtonLink({
   onClick,
 }: ButtonLinkProps) {
   const isExternal = href.startsWith('http')
-
-  return (
-    <a
-      className={`button-link button-link--${variant} ${className}`}
-      href={href}
-      target={isExternal ? '_blank' : undefined}
-      rel={isExternal ? 'noreferrer' : undefined}
-      onClick={onClick}
-    >
+  const classNames = `button-link button-link--${variant} ${className}`
+  const content = (
+    <>
       <span>{children}</span>
       {withArrow ? <ArrowRight aria-hidden="true" /> : null}
+    </>
+  )
+
+  if (!isExternal) {
+    return (
+      <Link className={classNames} to={href} onClick={onClick}>
+        {content}
+      </Link>
+    )
+  }
+
+  return (
+    <a className={classNames} href={href} target="_blank" rel="noreferrer" onClick={onClick}>
+      {content}
     </a>
   )
 }

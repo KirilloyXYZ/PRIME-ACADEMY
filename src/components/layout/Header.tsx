@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Menu, X } from 'lucide-react'
+import { Link, NavLink } from 'react-router-dom'
 import { navItems } from '../../content'
 import { withTelegramBotStart } from '../../config/site'
 import { ButtonLink } from '../ui/ButtonLink'
@@ -21,16 +22,16 @@ export function Header() {
 
   return (
     <header className="site-header">
-      <a className="brand" href="/" aria-label="PRIME ACADEMY">
+      <Link className="brand" to="/" aria-label="PRIME ACADEMY">
         <span>PRIME</span>
         <strong>ACADEMY</strong>
-      </a>
+      </Link>
 
       <nav className="desktop-nav" aria-label="Основная навигация">
         {navItems.map((item) => (
-          <a key={item.href} href={item.href}>
+          <NavLink key={item.href} to={item.href}>
             {item.label}
-          </a>
+          </NavLink>
         ))}
       </nav>
 
@@ -52,9 +53,9 @@ export function Header() {
 
       <nav id="mobile-navigation" className={`mobile-nav ${isOpen ? 'mobile-nav--open' : ''}`} aria-label="Мобильная навигация">
         {navItems.map((item) => (
-          <a key={item.href} href={item.href} onClick={closeMenu}>
+          <NavLink key={item.href} to={item.href} onClick={closeMenu}>
             {item.label}
-          </a>
+          </NavLink>
         ))}
         <ButtonLink href={withTelegramBotStart('hero')} variant="primary" onClick={closeMenu}>
           Записаться на диагностику

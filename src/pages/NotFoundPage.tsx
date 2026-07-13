@@ -1,4 +1,5 @@
 import { ArrowLeft } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 export function NotFoundPage() {
   return (
@@ -7,10 +8,10 @@ export function NotFoundPage() {
         <span>404</span>
         <h1>Страница не найдена</h1>
         <p>Похоже, ссылка изменилась или страница еще не добавлена. Вернись на главную и выбери нужный раздел.</p>
-        <a className="button button--dark" href="/">
+        <Link className="button button--dark" to="/">
           <ArrowLeft aria-hidden="true" />
           На главную
-        </a>
+        </Link>
       </div>
     </section>
   )
