@@ -6,6 +6,7 @@ export type SeoData = {
   description: string
   path: string
   image?: string
+  imageAlt?: string
   robots?: string
   type?: 'website' | 'article'
   jsonLd?: Array<Record<string, unknown>>

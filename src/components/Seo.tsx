@@ -10,6 +10,7 @@ export function Seo({ data }: SeoProps) {
   useEffect(() => {
     const url = getAbsoluteUrl(data.path)
     const image = data.image ?? `${siteConfig.url}${siteConfig.assets.ogImage}`
+    const imageAlt = data.imageAlt ?? data.title
 
     document.documentElement.lang = 'ru'
     document.title = data.title
@@ -24,14 +25,18 @@ export function Seo({ data }: SeoProps) {
     setProperty('og:description', data.description)
     setProperty('og:url', url)
     setProperty('og:image', image)
+    setProperty('og:image:secure_url', image)
+    setProperty('og:image:type', 'image/png')
     setProperty('og:image:width', '1200')
     setProperty('og:image:height', '630')
+    setProperty('og:image:alt', imageAlt)
     setProperty('og:locale', 'ru_RU')
 
     setMeta('twitter:card', siteConfig.seo.twitterCard)
     setMeta('twitter:title', data.title)
     setMeta('twitter:description', data.description)
     setMeta('twitter:image', image)
+    setMeta('twitter:image:alt', imageAlt)
 
     setJsonLd(data.jsonLd ?? [])
   }, [data])

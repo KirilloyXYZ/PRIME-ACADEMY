@@ -2,17 +2,16 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 
 const siteUrl = 'https://primeacademy-edu.ru'
-const ogImage = `${siteUrl}/og-image.png`
+const ogImage = `${siteUrl}/og-prime-academy.png`
 const distDir = path.join(process.cwd(), 'dist')
 const indexPath = path.join(distDir, 'index.html')
 
 const routes = [
   {
     path: '/',
-    title: 'PRIME ACADEMY — физика без зубрёжки',
+    title: 'PRIME ACADEMY — онлайн-подготовка по физике',
     h1: 'PRIME ACADEMY',
-    description:
-      'PRIME ACADEMY: онлайн-школа физики для подготовки к ЕГЭ, ОГЭ, олимпиадам и школьной программе через диагностику, теорию, практику и разбор ошибок.',
+    description: 'Системная подготовка к ЕГЭ, ОГЭ, олимпиадам и школьной физике.',
     type: 'website',
   },
   {
@@ -110,7 +109,7 @@ await Promise.all(
 )
 
 function updateHead(html, route) {
-  const url = `${siteUrl}${route.path === '/' ? '' : route.path}`
+  const url = route.path === '/' ? `${siteUrl}/` : `${siteUrl}${route.path}`
   const escapedTitle = escapeHtml(route.title)
   const escapedDescription = escapeHtml(route.description)
 
@@ -123,9 +122,13 @@ function updateHead(html, route) {
     .replace(/<meta property="og:type" content=".*?"\s*\/>/s, `<meta property="og:type" content="${route.type}" />`)
     .replace(/<meta property="og:url" content=".*?"\s*\/>/s, `<meta property="og:url" content="${url}" />`)
     .replace(/<meta property="og:image" content=".*?"\s*\/>/s, `<meta property="og:image" content="${ogImage}" />`)
+    .replace(/<meta property="og:image:secure_url" content=".*?"\s*\/>/s, `<meta property="og:image:secure_url" content="${ogImage}" />`)
+    .replace(/<meta property="og:image:type" content=".*?"\s*\/>/s, '<meta property="og:image:type" content="image/png" />')
+    .replace(/<meta property="og:image:alt" content=".*?"\s*\/>/s, `<meta property="og:image:alt" content="${escapedTitle}" />`)
     .replace(/<meta name="twitter:title" content=".*?"\s*\/>/s, `<meta name="twitter:title" content="${escapedTitle}" />`)
     .replace(/<meta\s+name="twitter:description"[\s\S]*?\/>/s, `<meta name="twitter:description" content="${escapedDescription}" />`)
     .replace(/<meta name="twitter:image" content=".*?"\s*\/>/s, `<meta name="twitter:image" content="${ogImage}" />`)
+    .replace(/<meta name="twitter:image:alt" content=".*?"\s*\/>/s, `<meta name="twitter:image:alt" content="${escapedTitle}" />`)
     .replace(
       '<div id="root"></div>',
       `<div id="root"></div><noscript><main><h1>${escapeHtml(route.h1)}</h1><p>${escapedDescription}</p><a href="https://t.me/primephys_bot?start=noscript">Записаться на диагностику</a></main></noscript>`,

@@ -2,8 +2,7 @@ export const siteConfig = {
   name: 'PRIME ACADEMY',
   domain: 'primeacademy-edu.ru',
   url: 'https://primeacademy-edu.ru',
-  description:
-    'Онлайн-школа физики для подготовки к ЕГЭ, ОГЭ, олимпиадам и школьной программе: диагностика, теория, практика, домашние задания и разбор ошибок.',
+  description: 'Системная подготовка к ЕГЭ, ОГЭ, олимпиадам и школьной физике.',
   themeColor: '#07091f',
   contactEmail: 'kirilkuznecov0018@gmail.com',
   telegram: {
@@ -21,7 +20,7 @@ export const siteConfig = {
     favicon: '/favicon.svg',
     appleTouchIcon: '/apple-touch-icon.png',
     manifest: '/site.webmanifest',
-    ogImage: '/og-image.png',
+    ogImage: '/og-prime-academy.png',
   },
   legalLinks: [
     { label: 'Политика обработки персональных данных', href: '/privacy' },
@@ -31,7 +30,7 @@ export const siteConfig = {
     { label: 'Cookies и аналитика', href: '/cookies' },
   ],
   seo: {
-    title: 'PRIME ACADEMY — физика без зубрёжки',
+    title: 'PRIME ACADEMY — онлайн-подготовка по физике',
     titleTemplate: '%s — PRIME ACADEMY',
     twitterCard: 'summary_large_image',
   },
@@ -44,7 +43,7 @@ export const TELEGRAM_CHANNEL_LABEL = siteConfig.telegram.channelLabel
 
 export function getAbsoluteUrl(path = '/') {
   const normalizedPath = path.startsWith('/') ? path : `/${path}`
-  return `${siteConfig.url}${normalizedPath === '/' ? '' : normalizedPath}`
+  return `${siteConfig.url}${normalizedPath === '/' ? '/' : normalizedPath}`
 }
 
 export function getAssetUrl(path: string) {
