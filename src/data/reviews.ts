@@ -6,11 +6,15 @@ export type Review = {
   result?: string
   resultNote?: string
   excerpt: string
+  shortQuote: string
   originalImage: string
+  imageWidth: number
+  imageHeight: number
   imageAlt: string
   featured?: boolean
   layout?: 'large' | 'medium' | 'small' | 'wide'
   consentConfirmed: boolean
+  showOnSite?: boolean
 }
 
 const originalPath = '/reviews/originals/'
@@ -25,7 +29,11 @@ export const reviews: Review[] = [
     resultNote: 'Индивидуальный результат ученицы',
     excerpt:
       'Очень хороший репетитор по физике, изначально очень боялась, но атмосфера на уроках дружелюбная, понятно объясняет. С 70 баллов за два месяца подняла меня, и за ЕГЭ по физике я получила 94 балла.',
+    shortQuote:
+      'Сначала было страшно, но занятия проходили дружелюбно и понятно. За два месяца результат вырос с 70 до 94 баллов.',
     originalImage: `${originalPath}review-3.jpg`,
+    imageWidth: 1280,
+    imageHeight: 652,
     imageAlt: 'Оригинальный скриншот отзыва Ли Лариной о подготовке к ЕГЭ по физике',
     featured: true,
     layout: 'large',
@@ -40,7 +48,11 @@ export const reviews: Review[] = [
     resultNote: 'Результат сына автора отзыва',
     excerpt:
       'Кирилл готовил моего сына к ЕГЭ по физике. С первых занятий стало понятно, что материал объясняется очень доступно и системно. За несколько месяцев удалось закрыть пробелы, отработать сложные задания и сильно поднять уверенность.',
+    shortQuote:
+      'Материал объяснялся доступно и системно, удалось закрыть пробелы и отработать сложные задания.',
     originalImage: `${originalPath}review-7.jpg`,
+    imageWidth: 1280,
+    imageHeight: 949,
     imageAlt: 'Оригинальный скриншот отзыва Елены о подготовке сына к ЕГЭ по физике',
     layout: 'medium',
     consentConfirmed: true,
@@ -53,7 +65,10 @@ export const reviews: Review[] = [
     result: 'Победитель олимпиады',
     excerpt:
       'Кирилл готовил меня к олимпиаде по физике почти с нуля. Очень понятно объяснял сложные темы, давал сильные задачи и всегда разбирал ошибки до конца.',
+    shortQuote: 'Сложные темы объяснялись понятно, были сильные задачи и разбор ошибок до конца.',
     originalImage: `${originalPath}review-6.jpg`,
+    imageWidth: 1280,
+    imageHeight: 877,
     imageAlt: 'Оригинальный скриншот отзыва Алины об олимпиадной подготовке по физике',
     layout: 'small',
     consentConfirmed: true,
@@ -66,19 +81,26 @@ export const reviews: Review[] = [
     result: '1 место',
     excerpt:
       'Очень благодарна Кириллу за подготовку к олимпиаде по математике. На занятиях было много нестандартных задач, полезных идей и подробных разборов.',
+    shortQuote: 'На занятиях было много нестандартных задач, полезных идей и подробных разборов.',
     originalImage: `${originalPath}review-4.jpg`,
+    imageWidth: 1280,
+    imageHeight: 969,
     imageAlt: 'Оригинальный скриншот отзыва Марии об олимпиадной подготовке по математике',
     layout: 'small',
     consentConfirmed: true,
+    showOnSite: false,
   },
   {
     id: 'darya-oge',
     authorName: 'Дарья',
     authorType: 'student',
     categoryLabel: 'ОГЭ',
-    result: '3 месяца с нуля',
+    result: 'Подготовка с нуля за 3 месяца',
     excerpt: 'Лучший репетитор! Всё идеально объясняет, подготовила с ОГЭ за 3 месяца с нуля. Теперь я умная, спасибо большое.',
+    shortQuote: 'Занятия помогли подготовиться к ОГЭ с нуля за 3 месяца: всё объяснялось понятно и спокойно.',
     originalImage: `${originalPath}review-2.jpg`,
+    imageWidth: 1280,
+    imageHeight: 658,
     imageAlt: 'Оригинальный скриншот отзыва Дарьи о подготовке к ОГЭ',
     layout: 'small',
     consentConfirmed: true,
@@ -88,9 +110,14 @@ export const reviews: Review[] = [
     authorName: 'Иринка',
     authorType: 'parent',
     categoryLabel: 'Физика ОГЭ/ЕГЭ/ВПР',
+    result: 'Появился результат занятий',
     excerpt:
       'Очень грамотный репетитор, быстро нашёл подход к моему сыну, высокая подготовленность материала и доступная интерактивная подача. А главное я вижу результат занятий, это восторг.',
+    shortQuote:
+      'Быстро нашёлся подход к сыну, материал подавался доступно и интерактивно, а результат занятий стал заметен.',
     originalImage: `${originalPath}review-5.jpg`,
+    imageWidth: 1280,
+    imageHeight: 668,
     imageAlt: 'Оригинальный скриншот отзыва родителя о занятиях по физике',
     layout: 'wide',
     consentConfirmed: true,
@@ -99,9 +126,13 @@ export const reviews: Review[] = [
     id: 'liza-school-physics',
     authorName: 'Лиза',
     categoryLabel: 'Школьная физика',
+    result: 'Улучшилась успеваемость',
     excerpt:
       'Раньше были проблемы с физикой в школе, но благодаря понятным объяснениям и терпению стало гораздо легче понимать материал. Успеваемость улучшилась, оценки стабильно хорошие.',
+    shortQuote: 'После понятных объяснений стало легче понимать физику, а оценки стали стабильно хорошими.',
     originalImage: `${originalPath}review-1.jpg`,
+    imageWidth: 1280,
+    imageHeight: 684,
     imageAlt: 'Оригинальный скриншот отзыва Лизы о занятиях по школьной физике',
     layout: 'wide',
     consentConfirmed: true,

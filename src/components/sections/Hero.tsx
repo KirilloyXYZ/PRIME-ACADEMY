@@ -10,15 +10,15 @@ export function Hero() {
     <section className="hero-section" id="top">
       <div className="hero-grid">
         <div className="hero-copy">
-          <div className="eyebrow">ОГЭ · ЕГЭ · олимпиады · школьная физика</div>
+          <div className="eyebrow">Онлайн-школа физики · ОГЭ · ЕГЭ · олимпиады · школьная база</div>
           <h1 className="hero-title">
             <span>Не зубри физику</span>
             <span className="hero-title__accent">собери её</span>
             <span className="hero-title__accent">в систему</span>
           </h1>
           <p className="hero-lead">
-            Кирилл Алексеевич и Ирина Даниловна объясняют сложные темы через модели, связи и задачи. В курсах есть
-            живые семинары: на них разбираем вопросы, ошибки и ход решения.
+            Мы объединили вузовский подход и методики ведущих школ России, чтобы системно готовить учеников к ЕГЭ, ОГЭ,
+            олимпиадам и уверенной учёбе в школе.
           </p>
 
           <div className="hero-actions">
@@ -57,6 +57,11 @@ export function Hero() {
                 src={imageAssets.kirillHeroCurrentPhoto}
                 alt="Кирилл Алексеевич, преподаватель физики"
                 loading="eager"
+                fetchPriority="high"
+                sources={imageAssets.kirillHeroCurrentSources}
+                width={imageAssets.kirillHeroCurrentWidth}
+                height={imageAssets.kirillHeroCurrentHeight}
+                sizes="(max-width: 640px) 58vw, (max-width: 920px) 52vw, 32vw"
                 position={{ desktop: '50% 25%', tablet: '50% 22%', mobile: '50% 18%' }}
               />
             </div>
@@ -67,7 +72,10 @@ export function Hero() {
               <ResponsiveImage
                 src={imageAssets.irinaHeroCurrentPhoto}
                 alt="Ирина Даниловна, преподаватель физики"
-                loading="eager"
+                sources={imageAssets.irinaHeroCurrentSources}
+                width={imageAssets.irinaHeroCurrentWidth}
+                height={imageAssets.irinaHeroCurrentHeight}
+                sizes="(max-width: 640px) 58vw, (max-width: 920px) 51vw, 32vw"
                 position={{ desktop: '50% 26%', tablet: '50% 22%', mobile: '50% 18%' }}
               />
             </div>

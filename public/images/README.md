@@ -1,10 +1,5 @@
-# PRIME ACADEMY images
+# PRIME ACADEMY public images
 
-Place the final teacher photos here with these exact names:
+The current React app imports teacher and course photos from `src/assets/images` so Vite can fingerprint them in production.
 
-- `kirill-hero.jpg` - first screen background/hero image for Kirill.
-- `ira-hero.jpg` - first screen background/hero image for Irina.
-- `kirill-profile.jpg` - teacher profile section image for Kirill.
-- `ira-profile.jpg` - teacher profile section image for Irina.
-
-The current app has a visual fallback for missing files, so the page still builds while photos are not present.
+This folder keeps earlier public copies of the teacher photos. Do not delete them unless the production deployment and content references have been checked again.

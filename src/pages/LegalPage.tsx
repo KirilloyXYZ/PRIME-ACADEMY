@@ -1,6 +1,8 @@
 ﻿import { ArrowLeft } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { Seo } from '../components/Seo'
 import { legalConfig } from '../config/legal'
+import { legalSeo } from '../config/seo'
 
 export type LegalPageKey = 'privacy' | 'personal-data-consent' | 'marketing-consent' | 'terms' | 'cookies'
 
@@ -228,6 +230,7 @@ export function LegalPage({ pageKey }: LegalPageProps) {
 
   return (
     <section className="legal-page">
+      <Seo data={legalSeo[pageKey]} />
       <div className="legal-shell">
         <Link className="back-link" to="/">
           <ArrowLeft aria-hidden="true" />

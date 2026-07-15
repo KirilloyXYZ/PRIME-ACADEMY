@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://primeacademy-edu.ru/sitemap.xml

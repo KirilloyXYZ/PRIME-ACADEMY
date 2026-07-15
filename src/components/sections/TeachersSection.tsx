@@ -11,7 +11,6 @@ export function TeachersSection() {
         <SectionHeading
           eyebrow="преподаватели"
           title="Те, кто будет объяснять тебе физику"
-          text="Кирилл Алексеевич и Ирина Даниловна ведут подготовку лично. Преподавателя для индивидуального формата подбираем мы: по цели, уровню, темпу и расписанию ученика."
         />
 
         <div className="teacher-showcase">
@@ -23,6 +22,10 @@ export function TeachersSection() {
                   alt={teacher.imageAlt}
                   position={teacher.imagePosition}
                   scale={teacher.imageScale}
+                  sources={teacher.imageSources}
+                  width={teacher.imageWidth}
+                  height={teacher.imageHeight}
+                  sizes="(max-width: 920px) calc(100vw - 40px), 44vw"
                 />
               </div>
 

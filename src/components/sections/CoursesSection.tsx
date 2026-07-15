@@ -1,9 +1,11 @@
 import { useRef } from 'react'
-import { ArrowLeft, ArrowRight, CheckCircle2 } from 'lucide-react'
-import { courses, teachers } from '../../content'
+import { ArrowLeft, ArrowRight, Check } from 'lucide-react'
+import { courses, teachers, type Course, type Teacher } from '../../content'
 import { ButtonLink } from '../ui/ButtonLink'
 import { ResponsiveImage } from '../ui/ResponsiveImage'
 import { SectionHeading } from '../ui/SectionHeading'
+
+const teacherById = new Map(teachers.map((teacher) => [teacher.id, teacher]))
 
 export function CoursesSection() {
   const trackRef = useRef<HTMLDivElement>(null)
@@ -27,64 +29,17 @@ export function CoursesSection() {
           <SectionHeading
             eyebrow="курсы"
             title="Выбери курс, а детали подберём на диагностике"
-            text="Курсы разделены по цели: экзамен, олимпиада, школьная база или индивидуальный маршрут. В карточке сразу видны цена, формат и что внутри."
           />
         </div>
 
         <div className="course-track" ref={trackRef}>
           {courses.map((course, index) => (
-            <article className="course-card" key={course.id}>
-              <div className="course-card__media">
-                <ResponsiveImage
-                  src={course.image}
-                  alt={course.imageAlt}
-                  position={course.imagePosition}
-                  scale={course.imageScale}
-                />
-                <span>{course.badge}</span>
-              </div>
-              <div className="course-card__body">
-                <div className="course-card__tags">
-                  {course.tags.slice(0, 3).map((tag) => (
-                    <span key={tag}>{tag}</span>
-                  ))}
-                </div>
-                <h3>{course.title}</h3>
-                <p>{course.short}</p>
-                <ul className="course-card__inside">
-                  {course.highlights.slice(0, 3).map((item) => (
-                    <li key={item}>
-                      <CheckCircle2 aria-hidden="true" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-                <div className="course-card__teachers">
-                  <div aria-hidden="true">
-                    {teachers.map((teacher) => (
-                      <ResponsiveImage key={teacher.id} src={teacher.image} alt="" position={teacher.imagePosition} />
-                    ))}
-                  </div>
-                  <span>{course.teacherLine}</span>
-                </div>
-                <div className="course-card__price">
-                  {course.pricePrefix ? <span>{course.pricePrefix}</span> : null}
-                  <strong>{course.priceValue}</strong>
-                  <small>{course.pricePeriod}</small>
-                </div>
-                <ButtonLink href={`/courses/${course.id}`} variant="primary" className="course-card__link" withArrow={false}>
-                  Посмотреть программу
-                </ButtonLink>
-              </div>
-              <span className="course-card__count" aria-hidden="true">
-                {String(index + 1).padStart(2, '0')}
-              </span>
-            </article>
+            <CourseCard key={course.id} course={course} priority={index === 0} />
           ))}
         </div>
 
         <div className="course-slider-footer">
-          <span>01 / {String(courses.length).padStart(2, '0')}</span>
+          <span>{courses.length} направлений</span>
           <div className="course-controls" aria-label="Листать курсы">
             <button type="button" onClick={() => scrollCourses('prev')} aria-label="Предыдущие курсы">
               <ArrowLeft aria-hidden="true" />
@@ -96,5 +51,93 @@ export function CoursesSection() {
         </div>
       </div>
     </section>
+  )
+}
+
+type CourseCardProps = {
+  course: Course
+  priority?: boolean
+}
+
+function CourseCard({ course, priority = false }: CourseCardProps) {
+  const courseTeachers = course.teacherIds
+    .map((teacherId) => teacherById.get(teacherId))
+    .filter((teacher): teacher is Teacher => Boolean(teacher))
+  const teacherNames = courseTeachers.map((teacher) => teacher.name.split(' ')[0]).join(' · ')
+
+  return (
+    <article className="course-card">
+      <div className={`course-card__teachers-media course-card__teachers-media--${courseTeachers.length}`}>
+        {courseTeachers.map((teacher) => {
+          const imageConfig = course.teacherImagePositions[teacher.id]
+
+          return (
+            <div className={`course-card__teacher-panel course-card__teacher-panel--${teacher.id}`} key={teacher.id}>
+              <ResponsiveImage
+                src={teacher.image}
+                alt={teacher.imageAlt}
+                position={imageConfig?.imagePosition ?? teacher.imagePosition}
+                scale={imageConfig?.imageScale ?? teacher.imageScale}
+                sources={teacher.imageSources}
+                width={teacher.imageWidth}
+                height={teacher.imageHeight}
+                sizes="(max-width: 920px) 45vw, 320px"
+                loading={priority ? 'eager' : 'lazy'}
+                fetchPriority={priority ? 'high' : undefined}
+                className={`course-card__teacher-image course-card__teacher-image--${teacher.id}`}
+              />
+            </div>
+          )
+        })}
+      </div>
+
+      <div className="course-card__body">
+        <span className="course-card__eyebrow">{course.cardEyebrow}</span>
+        <h3>{course.title}</h3>
+        <p>{course.cardDescription}</p>
+
+        <ul className="course-card__features">
+          {course.cardFeatures.slice(0, 3).map((feature) => (
+            <li key={feature}>
+              <Check aria-hidden="true" />
+              <span>{feature}</span>
+            </li>
+          ))}
+        </ul>
+
+        {courseTeachers.length ? (
+          <div className="course-card__teachers">
+            <div className="course-card__avatars" aria-hidden="true">
+              {courseTeachers.map((teacher) => {
+                const imageConfig = course.teacherImagePositions[teacher.id]
+
+                return (
+                  <ResponsiveImage
+                    key={teacher.id}
+                    src={teacher.image}
+                    alt=""
+                    position={imageConfig?.avatarPosition ?? imageConfig?.imagePosition ?? teacher.imagePosition}
+                    scale={imageConfig?.avatarScale ?? teacher.imageScale}
+                    sources={teacher.imageSources}
+                    width={teacher.imageWidth}
+                    height={teacher.imageHeight}
+                    sizes="36px"
+                    className="course-card__avatar-image"
+                  />
+                )
+              })}
+            </div>
+            <span>{teacherNames}</span>
+          </div>
+        ) : null}
+
+        <div className="course-card__footer">
+          <strong className="course-card__price">{course.price}</strong>
+          <ButtonLink href={`/courses/${course.id}`} variant="primary" className="course-card__link">
+            Посмотреть программу
+          </ButtonLink>
+        </div>
+      </div>
+    </article>
   )
 }

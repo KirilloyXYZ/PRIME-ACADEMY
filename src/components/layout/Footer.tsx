@@ -2,6 +2,7 @@ import { Mail, MessageCircle } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { navItems } from '../../content'
 import { legalConfig, legalLinks } from '../../config/legal'
+import { withTelegramBotStart } from '../../config/site'
 
 export function Footer() {
   return (
@@ -25,7 +26,7 @@ export function Footer() {
       </nav>
 
       <div className="footer-links">
-        <a href={legalConfig.telegramContact} target="_blank" rel="noreferrer">
+        <a href={withTelegramBotStart('footer')} target="_blank" rel="noreferrer">
           <MessageCircle aria-hidden="true" />
           Оставить заявку
         </a>

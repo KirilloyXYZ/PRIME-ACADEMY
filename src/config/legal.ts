@@ -1,18 +1,18 @@
-import { TELEGRAM_BOT_LABEL, TELEGRAM_BOT_URL, TELEGRAM_CHANNEL_LABEL, TELEGRAM_CHANNEL_URL } from './site'
+import { siteConfig } from './site'
 
 export const legalConfig = {
-  projectName: 'PRIME ACADEMY',
+  projectName: siteConfig.name,
   projectDescription: 'онлайн-подготовка по физике и репетиторские занятия',
-  siteDomain: '',
-  operatorFullName: 'Кузнецов Кирилл Алексеевич',
-  operatorStatus: 'самозанятый',
-  operatorCity: 'Москва',
-  operatorEmail: 'kirilkuznecov0018@gmail.com',
+  siteDomain: siteConfig.url,
+  operatorFullName: siteConfig.operator.fullName,
+  operatorStatus: siteConfig.operator.status,
+  operatorCity: siteConfig.operator.city,
+  operatorEmail: siteConfig.contactEmail,
   personalDataContactName: 'Кирилл Алексеевич',
-  telegramContact: TELEGRAM_BOT_URL,
-  telegramContactLabel: TELEGRAM_BOT_LABEL,
-  telegramChannel: TELEGRAM_CHANNEL_URL,
-  telegramChannelLabel: TELEGRAM_CHANNEL_LABEL,
+  telegramContact: siteConfig.telegram.botUrl,
+  telegramContactLabel: siteConfig.telegram.botLabel,
+  telegramChannel: siteConfig.telegram.channelUrl,
+  telegramChannelLabel: siteConfig.telegram.channelLabel,
   effectiveDate: '10 июля 2026',
   privacyVersion: '1.0',
   consentVersion: '1.0',
@@ -26,10 +26,4 @@ export const legalConfig = {
   hasLeadFormSubmission: false,
 } as const
 
-export const legalLinks = [
-  { label: 'Политика обработки персональных данных', href: '/privacy' },
-  { label: 'Согласие на обработку персональных данных', href: '/personal-data-consent' },
-  { label: 'Согласие на информационные сообщения', href: '/marketing-consent' },
-  { label: 'Пользовательское соглашение', href: '/terms' },
-  { label: 'Cookies и аналитика', href: '/cookies' },
-]
+export const legalLinks = siteConfig.legalLinks

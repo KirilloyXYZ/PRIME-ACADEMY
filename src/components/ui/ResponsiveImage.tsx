@@ -7,6 +7,17 @@ type ResponsiveImageProps = {
   position?: ResponsiveImagePosition
   scale?: number
   loading?: 'eager' | 'lazy'
+  decoding?: 'async' | 'sync' | 'auto'
+  fetchPriority?: 'high' | 'low' | 'auto'
+  width?: number
+  height?: number
+  srcSet?: string
+  sizes?: string
+  sources?: Array<{
+    srcSet: string
+    type: string
+    sizes?: string
+  }>
   className?: string
 }
 
@@ -23,6 +34,13 @@ export function ResponsiveImage({
   position,
   scale = 1,
   loading = 'lazy',
+  decoding = 'async',
+  fetchPriority,
+  width,
+  height,
+  srcSet,
+  sizes,
+  sources,
   className = '',
 }: ResponsiveImageProps) {
   const style: ImageStyle = {
@@ -32,7 +50,32 @@ export function ResponsiveImage({
     '--image-scale': scale,
   }
 
+  const image = (
+    <img
+      className={`responsive-image ${className}`}
+      src={src}
+      alt={alt}
+      loading={loading}
+      decoding={decoding}
+      fetchPriority={fetchPriority}
+      width={width}
+      height={height}
+      srcSet={srcSet}
+      sizes={sizes}
+      style={style}
+    />
+  )
+
+  if (!sources?.length) {
+    return image
+  }
+
   return (
-    <img className={`responsive-image ${className}`} src={src} alt={alt} loading={loading} style={style} />
+    <picture className="responsive-picture">
+      {sources.map((source) => (
+        <source key={`${source.type}-${source.srcSet}`} srcSet={source.srcSet} type={source.type} sizes={source.sizes ?? sizes} />
+      ))}
+      {image}
+    </picture>
   )
 }

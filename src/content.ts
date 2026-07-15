@@ -9,16 +9,28 @@ import {
 import type { LucideIcon } from 'lucide-react'
 
 import irinaHeroCurrentPhoto from './assets/images/ira-hero-current.jpg'
+import irinaHeroCurrentPhotoWebp from './assets/images/ira-hero-current.webp'
 import irinaCasualPhoto from './assets/images/irina-casual-course.jpg'
+import irinaCasualPhotoWebp from './assets/images/irina-casual-course.webp'
 import currentIrinaTeacherPhoto from './assets/images/irina-studio-teacher.jpg'
+import currentIrinaTeacherPhotoWebp from './assets/images/irina-studio-teacher.webp'
 import kirillBoardPhoto from './assets/images/kirill-board-course.jpg'
+import kirillBoardPhotoWebp from './assets/images/kirill-board-course.webp'
 import kirillHeroCurrentPhoto from './assets/images/kirill-hero-current.jpg'
+import kirillHeroCurrentPhotoWebp from './assets/images/kirill-hero-current.webp'
 import kirillStudioCoursePhoto from './assets/images/kirill-studio-course.jpg'
+import kirillStudioCoursePhotoWebp from './assets/images/kirill-studio-course.webp'
 
 export type ResponsiveImagePosition = {
   desktop?: string
   tablet?: string
   mobile?: string
+}
+
+export type ResponsiveImageSource = {
+  srcSet: string
+  type: string
+  sizes?: string
 }
 
 export type NavItem = {
@@ -33,11 +45,23 @@ export type Teacher = {
   image: string
   imageAlt: string
   imagePosition: ResponsiveImagePosition
+  imageSources?: ResponsiveImageSource[]
+  imageWidth?: number
+  imageHeight?: number
   imageScale?: number
   facts: string[]
   quote: string
   strengths: string[]
 }
+
+export type CourseTeacherImageConfig = {
+  imagePosition?: ResponsiveImagePosition
+  imageScale?: number
+  avatarPosition?: ResponsiveImagePosition
+  avatarScale?: number
+}
+
+export type CourseTeacherImagePositions = Partial<Record<Teacher['id'], CourseTeacherImageConfig>>
 
 export type CourseProgramModule = {
   title: string
@@ -61,6 +85,11 @@ export type Course = {
   priceValue: string
   pricePeriod: string
   price: string
+  cardEyebrow: string
+  cardDescription: string
+  cardFeatures: string[]
+  teacherIds: Teacher['id'][]
+  teacherImagePositions: CourseTeacherImagePositions
   short: string
   description: string
   format: string
@@ -68,6 +97,9 @@ export type Course = {
   image: string
   imageAlt: string
   imagePosition: ResponsiveImagePosition
+  imageSources?: ResponsiveImageSource[]
+  imageWidth?: number
+  imageHeight?: number
   imageScale?: number
   tags: string[]
   includes: string[]
@@ -112,6 +144,41 @@ export type FaqItem = {
   answer: string
 }
 
+const imageSource = (webp: string): ResponsiveImageSource[] => [{ srcSet: webp, type: 'image/webp' }]
+
+const imageMeta = {
+  irinaHeroCurrent: {
+    sources: imageSource(irinaHeroCurrentPhotoWebp),
+    width: 862,
+    height: 1280,
+  },
+  irinaCasual: {
+    sources: imageSource(irinaCasualPhotoWebp),
+    width: 1040,
+    height: 1280,
+  },
+  currentIrinaTeacher: {
+    sources: imageSource(currentIrinaTeacherPhotoWebp),
+    width: 872,
+    height: 1280,
+  },
+  kirillBoard: {
+    sources: imageSource(kirillBoardPhotoWebp),
+    width: 1280,
+    height: 960,
+  },
+  kirillHeroCurrent: {
+    sources: imageSource(kirillHeroCurrentPhotoWebp),
+    width: 853,
+    height: 1280,
+  },
+  kirillStudioCourse: {
+    sources: imageSource(kirillStudioCoursePhotoWebp),
+    width: 853,
+    height: 1280,
+  },
+} as const
+
 export const navItems: NavItem[] = [
   { label: 'Курсы', href: '/#courses' },
   { label: 'Как мы учим', href: '/#learning' },
@@ -140,6 +207,9 @@ export const teachers: Teacher[] = [
       tablet: '50% 30%',
       mobile: '50% 28%',
     },
+    imageSources: imageMeta.kirillStudioCourse.sources,
+    imageWidth: imageMeta.kirillStudioCourse.width,
+    imageHeight: imageMeta.kirillStudioCourse.height,
     facts: ['100 баллов по физике', 'студент НИЯУ МИФИ', 'олимпиадный опыт', 'объясняет через модели'],
     quote: 'Физика начинается там, где формула перестаёт быть набором букв.',
     strengths: [
@@ -160,6 +230,9 @@ export const teachers: Teacher[] = [
       tablet: '50% 22%',
       mobile: '50% 20%',
     },
+    imageSources: imageMeta.currentIrinaTeacher.sources,
+    imageWidth: imageMeta.currentIrinaTeacher.width,
+    imageHeight: imageMeta.currentIrinaTeacher.height,
     facts: ['100 баллов по физике', 'студентка НИЯУ МИФИ', 'олимпиадный опыт', 'структурирует сложные темы'],
     quote: 'Сложная тема становится понятной, когда у неё появляется структура.',
     strengths: [
@@ -177,6 +250,36 @@ const sharedTeacherRoles = [
   'Кирилл Алексеевич помогает увидеть физическую модель и логику решения.',
   'Ирина Даниловна собирает тему в структуру и помогает закрывать пробелы без хаоса.',
 ]
+
+const sharedCourseTeacherIds: Teacher['id'][] = ['kirill', 'irina']
+
+const sharedCourseTeacherImagePositions: CourseTeacherImagePositions = {
+  kirill: {
+    imagePosition: {
+      desktop: '48% 34%',
+      tablet: '48% 36%',
+      mobile: '48% 40%',
+    },
+    imageScale: 1.72,
+    avatarPosition: {
+      desktop: '50% 33%',
+      tablet: '50% 33%',
+      mobile: '50% 33%',
+    },
+  },
+  irina: {
+    imagePosition: {
+      desktop: '50% 10%',
+      tablet: '50% 10%',
+      mobile: '50% 8%',
+    },
+    avatarPosition: {
+      desktop: '50% 15%',
+      tablet: '50% 15%',
+      mobile: '50% 14%',
+    },
+  },
+}
 
 const seminarDefaults = {
   before: 'До семинара ученик получает тему, материалы и задачи для первого знакомства.',
@@ -196,6 +299,11 @@ export const courses: Course[] = [
     priceValue: '3 500 ₽',
     pricePeriod: 'в месяц',
     price: 'от 3 500 ₽ / месяц',
+    cardEyebrow: 'ЕГЭ · 10–11 класс',
+    cardDescription: 'Системно собираем кодификатор: теория, задачи, домашка и пробники без случайных тем.',
+    cardFeatures: ['Семинары', 'Проверка ДЗ', 'Пробники'],
+    teacherIds: sharedCourseTeacherIds,
+    teacherImagePositions: sharedCourseTeacherImagePositions,
     short: 'Системная подготовка к экзамену: теория, семинары, задачи, домашка и пробники.',
     description:
       'Собираем кодификатор в понятный маршрут: от базовых моделей до развёрнутых решений и оформления второй части.',
@@ -208,6 +316,9 @@ export const courses: Course[] = [
       tablet: '48% 24%',
       mobile: '50% 18%',
     },
+    imageSources: imageMeta.kirillHeroCurrent.sources,
+    imageWidth: imageMeta.kirillHeroCurrent.width,
+    imageHeight: imageMeta.kirillHeroCurrent.height,
     tags: ['ЕГЭ', 'семинары', 'пробники'],
     includes: ['лекции и материалы', 'живые семинары', 'домашние задания с проверкой', 'ежемесячные пробники'],
     highlights: ['живые семинары', 'проверка ДЗ', 'пробники', 'корректировка плана'],
@@ -282,6 +393,11 @@ export const courses: Course[] = [
     priceValue: '3 500 ₽',
     pricePeriod: 'в месяц',
     price: 'от 3 500 ₽ / месяц',
+    cardEyebrow: 'ОГЭ · 9 класс',
+    cardDescription: 'Закрываем пробелы, разбираем типовые задачи и учимся правильно оформлять решения.',
+    cardFeatures: ['Типовые задачи', 'Проверка ДЗ', 'Разбор ошибок'],
+    teacherIds: sharedCourseTeacherIds,
+    teacherImagePositions: sharedCourseTeacherImagePositions,
     short: 'Закрываем школьную базу, эксперименты, типовые задачи и оформление.',
     description:
       'Убираем страх перед формулами через понятные модели: что происходит, какие величины важны и какой закон нужен.',
@@ -294,6 +410,9 @@ export const courses: Course[] = [
       tablet: '50% 18%',
       mobile: '50% 14%',
     },
+    imageSources: imageMeta.currentIrinaTeacher.sources,
+    imageWidth: imageMeta.currentIrinaTeacher.width,
+    imageHeight: imageMeta.currentIrinaTeacher.height,
     tags: ['ОГЭ', 'база', 'практика'],
     includes: ['базовая теория', 'экспериментальные задания', 'домашка с проверкой', 'тренировка вариантов'],
     highlights: ['эксперименты', 'типовые задачи', 'проверка ДЗ', 'разбор ошибок'],
@@ -368,6 +487,11 @@ export const courses: Course[] = [
     priceValue: '2 500 ₽',
     pricePeriod: 'за занятие',
     price: 'от 2 500 ₽ / занятие',
+    cardEyebrow: 'Олимпиады · углублённый уровень',
+    cardDescription: 'Разбираем нестандартные задачи, учимся видеть модель, делать оценки и аккуратно выводить решение.',
+    cardFeatures: ['Нестандартные задачи', 'Модели', 'Разбор решений'],
+    teacherIds: sharedCourseTeacherIds,
+    teacherImagePositions: sharedCourseTeacherImagePositions,
     short: 'Задачи глубже школьного учебника: идеи решений, оценки и выводы.',
     description:
       'Работаем с мышлением: как увидеть физическую модель, сделать оценку, вывести связь и не потеряться в нестандартной задаче.',
@@ -380,6 +504,9 @@ export const courses: Course[] = [
       tablet: '54% 30%',
       mobile: '58% 28%',
     },
+    imageSources: imageMeta.kirillBoard.sources,
+    imageWidth: imageMeta.kirillBoard.width,
+    imageHeight: imageMeta.kirillBoard.height,
     tags: ['олимпиады', 'мышление', 'задачи'],
     includes: ['идеи решений', 'физические оценки', 'нестандартные задачи', 'аккуратный вывод'],
     highlights: ['нестандартные задачи', 'модели', 'оценки', 'разбор решений'],
@@ -450,6 +577,11 @@ export const courses: Course[] = [
     priceValue: '2 500 ₽',
     pricePeriod: 'за занятие',
     price: 'от 2 500 ₽ / занятие',
+    cardEyebrow: 'Школьная физика · 7–11 класс',
+    cardDescription: 'Помогаем с текущими темами, домашкой и контрольными, закрывая пробелы в школьной базе.',
+    cardFeatures: ['Текущие темы', 'Домашка', 'Контрольные'],
+    teacherIds: sharedCourseTeacherIds,
+    teacherImagePositions: sharedCourseTeacherImagePositions,
     short: 'Помогаем с текущими темами, контрольными, домашкой и пробелами.',
     description:
       'Собираем школьные темы в связанную картину: закон, модель, пример, задача, проверка. Без ощущения, что всё нужно просто выучить.',
@@ -462,6 +594,9 @@ export const courses: Course[] = [
       tablet: '48% 30%',
       mobile: '50% 25%',
     },
+    imageSources: imageMeta.irinaCasual.sources,
+    imageWidth: imageMeta.irinaCasual.width,
+    imageHeight: imageMeta.irinaCasual.height,
     tags: ['школа', 'пробелы', 'контрольные'],
     includes: ['объяснение темы', 'разбор домашки', 'подготовка к контрольным', 'укрепление базы'],
     highlights: ['текущие темы', 'контрольные', 'домашка', 'база'],
@@ -532,6 +667,11 @@ export const courses: Course[] = [
     priceValue: '2 500 ₽',
     pricePeriod: 'за занятие',
     price: '2 500 ₽ / занятие',
+    cardEyebrow: 'Индивидуальный формат',
+    cardDescription: 'Собираем личный маршрут после диагностики: темы, темп, домашка и регулярная обратная связь.',
+    cardFeatures: ['Личный план', 'Проверка ДЗ', 'Гибкий темп'],
+    teacherIds: sharedCourseTeacherIds,
+    teacherImagePositions: sharedCourseTeacherImagePositions,
     short: 'Точечная работа с пробелами, темпом и задачами конкретного ученика.',
     description:
       'После диагностики выбираем преподавателя и собираем маршрут: что закрыть сейчас, что тренировать каждую неделю и как проверять прогресс.',
@@ -544,6 +684,9 @@ export const courses: Course[] = [
       tablet: '50% 30%',
       mobile: '50% 26%',
     },
+    imageSources: imageMeta.kirillStudioCourse.sources,
+    imageWidth: imageMeta.kirillStudioCourse.width,
+    imageHeight: imageMeta.kirillStudioCourse.height,
     tags: ['лично', 'ДЗ', 'пробники'],
     includes: ['личный план', 'разбор ошибок', 'проверка домашки', 'подбор преподавателя школой'],
     highlights: ['личный план', 'проверка ДЗ', 'гибкий темп', 'пробники'],
@@ -686,6 +829,9 @@ export const learningMethodBenefits: LearningBenefit[] = [
 
 export const materialsHighlights = ['разборы задач', 'схемы и конспекты', 'материалы к экзаменам']
 
+const monthlyCoursePrice = courses.find((course) => course.id === 'ege')?.price ?? 'от 3 500 ₽ / месяц'
+const individualCoursePrice = courses.find((course) => course.id === 'individual')?.price ?? '2 500 ₽ / занятие'
+
 export const faqItems: FaqItem[] = [
   {
     question: 'Можно ли сначала попробовать бесплатно?',
@@ -693,8 +839,7 @@ export const faqItems: FaqItem[] = [
   },
   {
     question: 'Сколько стоят занятия?',
-    answer:
-      'Индивидуальное занятие стоит 2 500 ₽. Курсы с проверкой и разборами начинаются от 3 500 ₽ в месяц. Точный формат подбираем после диагностики.',
+    answer: `Индивидуальная подготовка: ${individualCoursePrice}. Курсы с проверкой и разборами: ${monthlyCoursePrice}. Точный формат подбираем после диагностики.`,
   },
   {
     question: 'Можно ли выбрать Кирилла Алексеевича или Ирину Даниловну?',
@@ -729,5 +874,11 @@ export const faqItems: FaqItem[] = [
 
 export const imageAssets = {
   kirillHeroCurrentPhoto,
+  kirillHeroCurrentSources: imageMeta.kirillHeroCurrent.sources,
+  kirillHeroCurrentWidth: imageMeta.kirillHeroCurrent.width,
+  kirillHeroCurrentHeight: imageMeta.kirillHeroCurrent.height,
   irinaHeroCurrentPhoto,
+  irinaHeroCurrentSources: imageMeta.irinaHeroCurrent.sources,
+  irinaHeroCurrentWidth: imageMeta.irinaHeroCurrent.width,
+  irinaHeroCurrentHeight: imageMeta.irinaHeroCurrent.height,
 }

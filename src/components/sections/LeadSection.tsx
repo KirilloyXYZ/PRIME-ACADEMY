@@ -3,7 +3,7 @@ import { withTelegramBotStart } from '../../config/site'
 import { ButtonLink } from '../ui/ButtonLink'
 
 export function LeadSection() {
-  const steps = ['Уточним класс и цель', 'Посмотрим текущий уровень', 'Предложим подходящий курс или формат']
+  const steps = ['Откроется Telegram-бот', 'Уточним класс, цель и текущие сложности', 'Предложим ближайший понятный шаг']
 
   return (
     <section className="lead-section" id="lead">
@@ -12,7 +12,7 @@ export function LeadSection() {
           <span className="lead-label">бесплатная диагностика</span>
           <h2>Разберём цель и подберём ближайший шаг</h2>
           <p>
-            На диагностике понятно, какой курс подойдёт, где сейчас пробелы и с чего лучше начинать подготовку.
+            На диагностике понятно, какой формат подойдёт, где сейчас пробелы и с чего лучше начинать подготовку.
           </p>
           <div className="lead-note">
             <ShieldCheck aria-hidden="true" />
@@ -34,7 +34,7 @@ export function LeadSection() {
           <div className="telegram-safety-note">
             <ShieldCheck aria-hidden="true" />
             <p>
-              Откроется Telegram для связи. Не отправляйте паспортные данные, адрес, медицинскую информацию и другие
+              Заявка отправляется через Telegram. Не отправляйте паспортные данные, адрес, медицинскую информацию и другие
               лишние персональные данные.
             </p>
           </div>

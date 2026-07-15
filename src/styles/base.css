@@ -1,0 +1,357 @@
+﻿
+:root {
+  --ink: #070714;
+  --ink-2: #111037;
+  --text: #171529;
+  --muted: #6e6986;
+  --paper: #fbfaff;
+  --paper-2: #f1eeff;
+  --white: #ffffff;
+  --blue: #073bff;
+  --violet: #6534ff;
+  --violet-2: #32128f;
+  --cyan: #73e2ff;
+  --line: rgba(21, 17, 65, 0.14);
+  --line-dark: rgba(255, 255, 255, 0.15);
+  --shadow: 0 20px 55px rgba(23, 13, 84, 0.14);
+  --shadow-strong: 0 30px 85px rgba(9, 7, 38, 0.32);
+  --radius: 8px;
+  --content: 1280px;
+  font-family:
+    Inter, Manrope, Onest, 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--text);
+  background: var(--ink);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-width: 320px;
+  min-height: 100%;
+}
+
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+html {
+  scrollbar-gutter: stable;
+}
+
+body {
+  margin: 0;
+  background: var(--ink);
+}
+
+body.mobile-nav-open {
+  overflow: hidden;
+}
+
+body,
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  border: 0;
+  cursor: pointer;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+.responsive-picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+svg {
+  width: 1em;
+  height: 1em;
+  stroke-width: 2.2;
+}
+
+main {
+  width: 100%;
+  overflow: hidden;
+  background: var(--paper);
+}
+
+:focus-visible {
+  outline: 3px solid rgba(115, 226, 255, 0.85);
+  outline-offset: 3px;
+}
+
+[id] {
+  scroll-margin-top: 112px;
+}
+
+.site-header {
+  position: sticky;
+  top: 14px;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  width: min(calc(100% - 32px), var(--content));
+  margin: 14px auto 0;
+  padding: 12px 14px 12px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.52);
+  border-radius: var(--radius);
+  background: rgba(244, 241, 255, 0.84);
+  box-shadow: 0 18px 45px rgba(7, 7, 20, 0.16);
+  backdrop-filter: blur(18px);
+}
+
+.brand {
+  display: inline-grid;
+  color: var(--ink);
+  font-family: 'Arial Black', Impact, 'Segoe UI Black', system-ui, sans-serif;
+  line-height: 0.88;
+  text-transform: uppercase;
+}
+
+.brand span {
+  color: var(--blue);
+  font-size: 1.05rem;
+}
+
+.brand strong {
+  font-size: 1.24rem;
+}
+
+.desktop-nav {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  color: rgba(7, 7, 20, 0.72);
+  font-size: 0.94rem;
+  font-weight: 850;
+}
+
+.desktop-nav a {
+  transition: color 0.18s ease;
+}
+
+.desktop-nav a:hover,
+.desktop-nav a:focus-visible {
+  color: var(--blue);
+}
+
+.header-actions {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.mobile-menu {
+  display: none;
+  flex: 0 0 46px;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border: 1px solid rgba(23, 18, 65, 0.13);
+  border-radius: var(--radius);
+  color: var(--ink);
+  background: var(--white);
+}
+
+.mobile-nav {
+  display: none;
+}
+
+.button-link,
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 54px;
+  padding: 0 24px;
+  border-radius: var(--radius);
+  font-weight: 950;
+  line-height: 1;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    background 0.18s ease,
+    color 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.button-link:hover,
+.button-link:focus-visible,
+.button:hover,
+.button:focus-visible {
+  transform: translateY(-2px);
+}
+
+.button-link span {
+  min-width: 0;
+  text-align: center;
+  white-space: normal;
+  line-height: 1.15;
+}
+
+.button-link svg,
+.button svg {
+  flex: 0 0 auto;
+}
+
+.button-link small {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 0 9px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 950;
+  line-height: 1;
+}
+
+.button-link--primary,
+.button--dark {
+  color: var(--white);
+  background: var(--ink);
+  box-shadow: 0 18px 38px rgba(7, 7, 20, 0.18);
+}
+
+.button-link--secondary {
+  color: var(--ink);
+  border: 1px solid var(--line);
+  background: var(--white);
+}
+
+.button-link--light {
+  color: var(--ink);
+  background: var(--white);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18);
+}
+
+.button--light {
+  color: var(--ink);
+  border: 1px solid var(--line);
+  background: var(--white);
+}
+
+.button-link--ghost {
+  color: var(--white);
+  border: 1px solid rgba(255, 255, 255, 0.36);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.section-shell {
+  width: min(calc(100% - 40px), var(--content));
+  margin: 0 auto;
+}
+
+.page-section,
+.lead-section {
+  position: relative;
+  padding: 98px 0;
+  scroll-margin-top: 112px;
+}
+
+.section-heading {
+  max-width: 800px;
+  margin-bottom: 40px;
+}
+
+.section-heading--center {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.section-heading span,
+.eyebrow,
+.lead-label {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 14px;
+  color: var(--blue);
+  font-size: 0.78rem;
+  font-weight: 950;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.section-heading h2,
+.lead-copy h2 {
+  margin: 0;
+  color: var(--ink);
+  font-family: 'Arial Black', Impact, 'Segoe UI Black', system-ui, sans-serif;
+  font-size: clamp(2.25rem, 4.1vw, 4.6rem);
+  line-height: 0.98;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.section-heading p,
+.lead-copy p {
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.35vw, 1.14rem);
+  line-height: 1.62;
+}
+
+.section-heading--light span,
+.section-heading--light h2 {
+  color: var(--white);
+}
+
+.section-heading--light p {
+  color: rgba(255, 255, 255, 0.74);
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 11px;
+  border-radius: var(--radius);
+  color: var(--blue);
+  background: rgba(7, 59, 255, 0.08);
+  font-size: 0.82rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.responsive-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--image-position-desktop, 50% 35%);
+  transform: scale(var(--image-scale, 1));
+  transform-origin: center;
+}
+

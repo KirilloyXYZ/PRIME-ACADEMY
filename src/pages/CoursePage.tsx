@@ -1,8 +1,9 @@
-import { useEffect } from 'react'
 import { ArrowLeft, CheckCircle2 } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { teachers, type Course } from '../content'
+import { getCourseSeo } from '../config/seo'
 import { withTelegramBotStart } from '../config/site'
+import { Seo } from '../components/Seo'
 import { ButtonLink } from '../components/ui/ButtonLink'
 import { ResponsiveImage } from '../components/ui/ResponsiveImage'
 
@@ -11,13 +12,9 @@ type CoursePageProps = {
 }
 
 export function CoursePage({ course }: CoursePageProps) {
-  useEffect(() => {
-    document.title = `${course.title} — PRIME ACADEMY`
-    setMetaDescription(`${course.title}: ${course.short} ${course.teacherLine}`)
-  }, [course])
-
   return (
     <section className="course-page">
+      <Seo data={getCourseSeo(course)} />
       <div className="course-page__shell">
         <Link className="back-link" to="/#courses">
           <ArrowLeft aria-hidden="true" />
@@ -64,7 +61,10 @@ export function CoursePage({ course }: CoursePageProps) {
               alt={course.imageAlt}
               position={course.imagePosition}
               scale={course.imageScale}
-              loading="eager"
+              sources={course.imageSources}
+              width={course.imageWidth}
+              height={course.imageHeight}
+              sizes="(max-width: 920px) calc(100vw - 40px), 42vw"
             />
           </div>
         </div>
@@ -154,7 +154,15 @@ export function CoursePage({ course }: CoursePageProps) {
             {teachers.map((teacher) => (
               <article key={teacher.id}>
                 <div>
-                  <ResponsiveImage src={teacher.image} alt={teacher.imageAlt} position={teacher.imagePosition} />
+                  <ResponsiveImage
+                    src={teacher.image}
+                    alt={teacher.imageAlt}
+                    position={teacher.imagePosition}
+                    sources={teacher.imageSources}
+                    width={teacher.imageWidth}
+                    height={teacher.imageHeight}
+                    sizes="(max-width: 920px) calc(100vw - 80px), 36vw"
+                  />
                 </div>
                 <span>{teacher.role}</span>
                 <h3>{teacher.name}</h3>
@@ -224,16 +232,4 @@ function InfoCard({ title, items }: { title: string; items: string[] }) {
       </ul>
     </article>
   )
-}
-
-function setMetaDescription(content: string) {
-  let meta = document.querySelector('meta[name="description"]')
-
-  if (!meta) {
-    meta = document.createElement('meta')
-    meta.setAttribute('name', 'description')
-    document.head.append(meta)
-  }
-
-  meta.setAttribute('content', content)
 }

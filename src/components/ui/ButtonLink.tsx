@@ -9,6 +9,8 @@ type ButtonLinkProps = {
   className?: string
   withArrow?: boolean
   onClick?: () => void
+  tabIndex?: number
+  ariaLabel?: string
 }
 
 export function ButtonLink({
@@ -18,6 +20,8 @@ export function ButtonLink({
   className = '',
   withArrow = true,
   onClick,
+  tabIndex,
+  ariaLabel,
 }: ButtonLinkProps) {
   const isExternal = href.startsWith('http')
   const classNames = `button-link button-link--${variant} ${className}`
@@ -30,14 +34,14 @@ export function ButtonLink({
 
   if (!isExternal) {
     return (
-      <Link className={classNames} to={href} onClick={onClick}>
+      <Link className={classNames} to={href} onClick={onClick} tabIndex={tabIndex} aria-label={ariaLabel}>
         {content}
       </Link>
     )
   }
 
   return (
-    <a className={classNames} href={href} target="_blank" rel="noreferrer" onClick={onClick}>
+    <a className={classNames} href={href} target="_blank" rel="noreferrer" onClick={onClick} tabIndex={tabIndex} aria-label={ariaLabel}>
       {content}
     </a>
   )
